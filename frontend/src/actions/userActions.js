@@ -234,7 +234,6 @@ export const resetPassword = (token, passwords) => async (dispatch) => {
 // Logout user
 export const logout = () => async (dispatch) => {
     try {
-
         await axios.get('http://localhost:4000/api/v1/logout')
         document.cookie="token="
         dispatch({

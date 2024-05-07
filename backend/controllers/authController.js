@@ -196,12 +196,10 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
 
 // Logout user   =>   /api/v1/logout
 exports.logout = catchAsyncErrors(async (req, res, next) => {
-    res.cookie('token', null, {
-        expires: new Date(Date.now()),
-        httpOnly: true
-    })
-
-    res.status(200).json({
+    res.status(200).cookie('token', {
+        // httpOnly: true,
+        maxAge: 0
+    }).json({
         success: true,
         message: 'Logged out'
     })

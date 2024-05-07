@@ -9,10 +9,6 @@ import { addItemToCart, removeItemFromCart } from "../../actions/cartActions";
 import { Box, Container, Divider, Grid, LinearProgress, Stack, Typography } from "@mui/material";
 import DiscountIcon from '@mui/icons-material/Discount';
 import { Button } from "react-bootstrap";
-<<<<<<< HEAD
-=======
-
->>>>>>> f558fb38ed6d5c4716eaf0b28aa8c6b99593c5a4
 const Cart = () => {
   const navigate=useNavigate()
   const { isAuthenticated} = useSelector(

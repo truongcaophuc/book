@@ -16,7 +16,7 @@ import Banner from "./layout/Banner";
 import { useLocation, useParams } from "react-router-dom";
 import CategorySection from "./layout/CategorySection";
 import Features from "./layout/Features";
-import { Container } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 
 const { createSliderWithTooltip } = Slider;
 const Range = createSliderWithTooltip(Slider.Range);
@@ -50,9 +50,9 @@ const Home = ({ match }) => {
       return alert.error(error);
     }
     dispatch(getProducts(keyword, currentPage, price, catagory, rating));
-  }, [dispatch, alert, error, keyword, currentPage, price, catagory, rating]);
+  }, [dispatch, alert, error, keyword, currentPage, price, catagory, rating,params]);
 
-  console.log("sản phẩm :",products)
+  // console.log("sản phẩm :",products)
   useEffect(() => {
     if (error) {
       return alert.error(error);
@@ -116,7 +116,10 @@ const Home = ({ match }) => {
         <Container>
             {keyword ? (
                 <Fragment>
-                  <div className="col-6 col-md-3 mt-5 mb-5">
+                  
+                  <Grid container>
+                    <Grid item md={3} my={3}>
+                    
                     <div className="px-5">
                       <Range
                         marks={{
@@ -184,15 +187,24 @@ const Home = ({ match }) => {
                         </ul>
                       </div>
                     </div>
-                  </div>
-                
-                  <div className="col-6 col-md-9">
-                    <div className="row">
-                      {products.map((product) => (
+                  
+                    </Grid>
+                    <Grid item md={9}>
+                  
+                    
+                      {/* {products.map((product) => (
                         <ProductList key={product._id} product={product} col={4} />
-                      ))}
-                    </div>
-                  </div>
+                      ))} */}
+                      <ProductList products={products} col={3}/>
+                   
+                 
+                  </Grid>
+
+                  </Grid>
+
+                  
+                
+                  
                 </Fragment>
               ) : (
                 <>

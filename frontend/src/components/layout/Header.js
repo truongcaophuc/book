@@ -171,7 +171,7 @@ function Header() {
 					))}
 				</Box>
 				
-				{ user ? (
+				{ user && isAuthenticated ? (
 					<>
 					<Box sx ={{flexGrow: 0, mr:2, position:'relative'}}>
 
