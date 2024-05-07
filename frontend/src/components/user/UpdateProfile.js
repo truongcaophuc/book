@@ -6,9 +6,9 @@ import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateProfile, loadUser, clearErrors } from '../../actions/userActions'
 import { UPDATE_PROFILE_RESET } from '../../constants/userConstants'
-
-const UpdateProfile = ({ history }) => {
-
+import {useNavigate} from 'react-router-dom'
+const UpdateProfile = () => {
+    const navigate = useNavigate();
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [avatar, setAvatar] = useState('')
@@ -37,14 +37,14 @@ const UpdateProfile = ({ history }) => {
             alert.success('User updated successfully')
             dispatch(loadUser());
 
-            history.push('/me')
+            navigate('/me')
 
             dispatch({
                 type: UPDATE_PROFILE_RESET
             })
         }
 
-    }, [dispatch, alert, error, history, isUpdated])
+    }, [dispatch, alert, error, navigate, isUpdated])
 
     const submitHandler = (e) => {
         e.preventDefault();
