@@ -1,16 +1,23 @@
 import React, { Fragment } from 'react'
-import { Link ,useNavigate} from 'react-router-dom'
-import {v4 as uuidv4} from "uuid"
+import { Link,useNavigate } from 'react-router-dom'
+
 import MetaData from '../layout/MetaData'
 import CheckoutSteps from './CheckoutSteps'
+
+import { useDispatch, useSelector } from 'react-redux'
+import { Box, Divider, Grid, Stack } from '@mui/material'
+import { Container } from 'react-bootstrap'
+import PlaceOutlinedIcon from '@mui/icons-material/PlaceOutlined';
 import { createOrder, clearErrors } from "../../actions/orderActions";
 import { useSelector,useDispatch } from 'react-redux'
 import { Box, Divider, Grid, Stack } from '@mui/material'
 import { Container } from 'react-bootstrap'
 import PlaceOutlinedIcon from '@mui/icons-material/PlaceOutlined';
+
 const ConfirmOrder = () => {
-    const navigate=useNavigate()
-  const dispatch = useDispatch();
+
+    const navigate= useNavigate();
+    const dispatch = useDispatch();
     const { cartItems, shippingInfo } = useSelector(state => state.cart)
     const { user } = useSelector(state => state.auth)
 
@@ -20,6 +27,7 @@ const ConfirmOrder = () => {
     const taxPrice = Number((0.05 * itemsPrice).toFixed(2))
     const totalPrice = (itemsPrice + shippingPrice + taxPrice).toFixed(2)
     const randomNumber = Math.floor(Math.random() * 1000000);
+
     const processToPayment = async () => {
         const data = {
             orderCode:randomNumber,

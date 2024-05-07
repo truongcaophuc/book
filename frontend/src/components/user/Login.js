@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { Link, useLocation,useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 import Loader from "../layout/Loader";
 import MetaData from "../layout/MetaData";
@@ -9,27 +9,29 @@ import { useDispatch, useSelector } from "react-redux";
 import { login, clearErrors } from "../../actions/userActions";
 
 const Login = () => {
-  const navigate =useNavigate()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const alert = useAlert();
   const dispatch = useDispatch();
+  const history = useNavigate();
+
   const { isAuthenticated, error, loading } = useSelector(
     (state) => state.auth
   );
   const location = useLocation();
   const redirect = location.search ? location.search.split("=")[1] : "/";
+
   useEffect(() => {
     if (isAuthenticated) {
-     navigate("/")
+      history(redirect);
     }
 
     if (error) {
       alert.error(error);
       dispatch(clearErrors());
     }
-  }, [dispatch, alert, isAuthenticated, error]);
+  }, [dispatch, alert, isAuthenticated, error, history]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -44,7 +46,7 @@ const Login = () => {
         <Fragment>
           <MetaData title={"Login"} />
 
-          <h3 className="title-30 text-center mb-35">Login Your Account</h3>
+          <h3 className="title-30 text-center mb-35">Đăng nhập tài khoản</h3>
           <form className="login-form" onSubmit={submitHandler}>
             <div className="row">
               <div className="col-12">
@@ -61,7 +63,7 @@ const Login = () => {
               </div>
               <div className="col-12">
                 <div className="form-inner hidden-icon">
-                  <label htmlFor="email_password">Passwords</label>
+                  <label htmlFor="email_password">Mật khẩu</label>
                   <input
                     type="password"
                     name="name"
@@ -75,7 +77,7 @@ const Login = () => {
                 <div className="form-inner d-flex justify-content-between">
                   <label></label>
                   <Link to="/password/forgot" className="forget-password">
-                    Forgotten password?
+                    Quên mật khẩu?
                   </Link>
                 </div>
               </div>
@@ -84,10 +86,10 @@ const Login = () => {
                   <button
                     className="primary--btn login-btn"
                     type="submit"
-                    style={{ border: "none", background: "orange" }}
+                    style={{ border: "none", background: "#1976D2" }}
                   >
                 
-                      login ACCOUNT
+                     Đăng nhập tài khoản
                    
                   </button>
                 </div>

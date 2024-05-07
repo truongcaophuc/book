@@ -7,27 +7,27 @@ import Loader from '../layout/Loader'
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { getOrderDetails, clearErrors } from '../../actions/orderActions'
-import {useParams} from "react-router-dom"
-const OrderDetails = () => {
-    const { id } = useParams();
+
+const OrderDetails = ({ match }) => {
+
     const alert = useAlert();
     const dispatch = useDispatch();
 
     const { loading, error, order = {} } = useSelector(state => state.orderDetails)
-    const { shippingInfo, orderItems, paidAt, user, totalPrice, orderStatus ,checkoutUrl} = order
+    const { shippingInfo, orderItems, paymentInfo, user, totalPrice, orderStatus } = order
 
     useEffect(() => {
-        dispatch(getOrderDetails(id));
+        dispatch(getOrderDetails(match.params.id));
 
         if (error) {
             alert.error(error);
             dispatch(clearErrors())
         }
-    }, [dispatch, alert, error,id])
+    }, [dispatch, alert, error, match.params.id])
 
     const shippingDetails = shippingInfo && `${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.postalCode}, ${shippingInfo.country}`
 
-    const isPaid = paidAt ? true : false
+    const isPaid = paymentInfo && paymentInfo.status === 'succeeded' ? true : false
 
     return (
         <Fragment>
@@ -50,9 +50,7 @@ const OrderDetails = () => {
 
                             <h4 className="my-4">Payment</h4>
                             <p className={isPaid ? "greenColor" : "redColor"}><b>{isPaid ? "PAID" : "NOT PAID"}</b></p>
-        
-                            <a href={checkoutUrl} className="text-[#4941d6]">Link thanh toán</a>
-                        
+
 
                             <h4 className="my-4">Order Status:</h4>
                             <p className={order.orderStatus && String(order.orderStatus).includes('Delivered') ? "greenColor" : "redColor"} ><b>{orderStatus}</b></p>

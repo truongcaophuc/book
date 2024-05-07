@@ -1,17 +1,18 @@
 const mongoose = require("mongoose");
 
-const connectDatabase = () => {
-  mongoose
-    .connect("http://127.0.0.1:27017/shopit", {
+const connectDatabase = async () => {
+  try {
+    const con = await mongoose
+    .connect('mongodb://127.0.0.1:27017/shopit', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
     })
-    .then((con) => {
-      console.log(
-        `MongoDB Database connected with HOST: ${con.connection.host}`
-      );
-    });
+    console.log(`MongoDB Database connected with HOST: ${con.connection.host}`);
+  
+  } catch (error) {
+  console.log(error)    
+  }
 };
 
 module.exports = connectDatabase;

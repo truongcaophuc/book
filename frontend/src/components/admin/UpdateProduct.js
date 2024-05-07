@@ -7,11 +7,9 @@ import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateProduct, getProductDetails, clearErrors } from '../../actions/productActions'
 import { UPDATE_PRODUCT_RESET } from '../../constants/productConstants'
-import {useNavigate,useParams} from "react-router-dom"
 
-const UpdateProduct = () => {
-    const navigate=useNavigate()
-    const {id}=useParams()
+const UpdateProduct = ({ match, history }) => {
+
 	const [name, setName] = useState('');
 	const [price, setPrice] = useState(0);
 	const [description, setDescription] = useState('');
@@ -44,7 +42,7 @@ const UpdateProduct = () => {
 	const { error, product } = useSelector(state => state.productDetails)
 	const { loading, error: updateError, isUpdated } = useSelector(state => state.product);
 
-	const productId = id;
+	const productId = match.params.id;
 
 	useEffect(() => {
 
@@ -72,12 +70,12 @@ const UpdateProduct = () => {
 
 
 		if (isUpdated) {
-			navigate('/admin/products');
+			history.push('/admin/products');
 			alert.success('Product updated successfully');
 			dispatch({ type: UPDATE_PRODUCT_RESET })
 		}
 
-	}, [dispatch, alert, error, isUpdated, updateError, product, productId])
+	}, [dispatch, alert, error, isUpdated, history, updateError, product, productId])
 
 
 	const submitHandler = (e) => {

@@ -14,6 +14,9 @@ import { allUsers } from '../../actions/userActions'
 const Dashboard = () => {
 
 	const dispatch = useDispatch();
+	//dispatch(getAdminProducts())
+	// dispatch(allOrders())
+	// dispatch(allUsers())
 	const { products } = useSelector(state => state.products)
 	const { users } = useSelector(state => state.allUsers)
 	const { orders, totalAmount, loading } = useSelector(state => state.allOrders)
@@ -24,6 +27,7 @@ const Dashboard = () => {
 			outOfStock += 1;
 		}
 	})
+    console.log("component re render")
 	useEffect(() => {
 		dispatch(getAdminProducts())
 		dispatch(allOrders())

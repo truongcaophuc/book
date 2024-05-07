@@ -13,7 +13,7 @@ import { useAlert } from "react-alert";
 import { getProducts } from "../actions/productActions";
 import { getCategory } from "../actions/categoryActions";
 import Banner from "./layout/Banner";
-import { useLocation,useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import CategorySection from "./layout/CategorySection";
 import Features from "./layout/Features";
 import { Container } from "@mui/material";
@@ -21,13 +21,13 @@ import { Container } from "@mui/material";
 const { createSliderWithTooltip } = Slider;
 const Range = createSliderWithTooltip(Slider.Range);
 
-const Home = () => {
-  const params = useParams();
+const Home = ({ match }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [price, setPrice] = useState([1, 100000]);
+  const [price, setPrice] = useState([1, 10000]);
   const [catagory, setCatagory] = useState("");
   const [rating, setRating] = useState(0);
   const location = useLocation();
+
   const { category } = useSelector((state) => state.category);
 
   const alert = useAlert();
@@ -42,7 +42,17 @@ const Home = () => {
     filteredProductsCount,
   } = useSelector((state) => state.products);
 
+  const params = useParams();
+
   const keyword = params.keyword;
+  useEffect(() => {
+    if (error) {
+      return alert.error(error);
+    }
+    dispatch(getProducts(keyword, currentPage, price, catagory, rating));
+  }, [dispatch, alert, error, keyword, currentPage, price, catagory, rating]);
+
+  console.log("sản phẩm :",products)
   useEffect(() => {
     if (error) {
       return alert.error(error);

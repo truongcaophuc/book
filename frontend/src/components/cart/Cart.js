@@ -1,20 +1,25 @@
 import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import MetaData from "../layout/MetaData";
-import { useNavigate } from 'react-router-dom';
+
 import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart, removeItemFromCart } from "../../actions/cartActions";
 import { Box, Container, Divider, Grid, LinearProgress, Stack, Typography } from "@mui/material";
 import DiscountIcon from '@mui/icons-material/Discount';
 import { Button } from "react-bootstrap";
+<<<<<<< HEAD
+=======
+
+>>>>>>> f558fb38ed6d5c4716eaf0b28aa8c6b99593c5a4
 const Cart = () => {
-  const dispatch = useDispatch();
   const navigate=useNavigate()
   const { isAuthenticated} = useSelector(
     (state) => state.auth
   );
+  const dispatch = useDispatch();
+
   const { cartItems } = useSelector((state) => state.cart);
 
   const removeCartItemHandler = (id) => {
@@ -29,7 +34,7 @@ const Cart = () => {
     dispatch(addItemToCart(id, newQty));
   };
 
-  const decreaseQty = (id, quantity) => {
+  const decreaseQty = (id, quantity) => { 
     const newQty = quantity - 1;
 
     if (newQty <= 0) return;
