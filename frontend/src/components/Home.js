@@ -20,10 +20,10 @@ import { Container, Grid } from "@mui/material";
 
 const { createSliderWithTooltip } = Slider;
 const Range = createSliderWithTooltip(Slider.Range);
-
-const Home = ({ match }) => {
+const maxPrice = 1000000;
+const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [price, setPrice] = useState([1, 10000]);
+  const [price, setPrice] = useState([0, maxPrice]);
   const [catagory, setCatagory] = useState("");
   const [rating, setRating] = useState(0);
   const location = useLocation();
@@ -51,8 +51,6 @@ const Home = ({ match }) => {
     }
     dispatch(getProducts(keyword, currentPage, price, catagory, rating));
   }, [dispatch, alert, error, keyword, currentPage, price, catagory, rating,params]);
-
-  // console.log("sản phẩm :",products)
   useEffect(() => {
     if (error) {
       return alert.error(error);
@@ -88,7 +86,7 @@ const Home = ({ match }) => {
               text2="Vận chuyển đến bạn tất cả các ngày trong tuần"
             />
           )}
-          {ishome && <CategorySection />}
+          {ishome && <CategorySection setCatagory={setCatagory}/>}
           {ishome ? (
             <div class="col-lg-12 mt-5">
               <div class="section-head-style-one">
@@ -124,11 +122,11 @@ const Home = ({ match }) => {
                       <Range
                         marks={{
                           1: `$1`,
-                          10000: `$10000`,
+                          1000000: `${maxPrice}`,
                         }}
                         min={1}
-                        max={10000}
-                        defaultValue={[1, 10000]}
+                        max={maxPrice}
+                        defaultValue={[1, maxPrice]}
                         tipFormatter={(value) => `$${value}`}
                         tipProps={{
                           placement: "top",
@@ -190,21 +188,9 @@ const Home = ({ match }) => {
                   
                     </Grid>
                     <Grid item md={9}>
-                  
-                    
-                      {/* {products.map((product) => (
-                        <ProductList key={product._id} product={product} col={4} />
-                      ))} */}
-                      <ProductList products={products} col={3}/>
-                   
-                 
+                      <ProductList products={products} col={3}/>     
+                    </Grid>
                   </Grid>
-
-                  </Grid>
-
-                  
-                
-                  
                 </Fragment>
               ) : (
                 <>

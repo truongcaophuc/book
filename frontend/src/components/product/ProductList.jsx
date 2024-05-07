@@ -5,7 +5,7 @@ import Product from './Product'
 const ProductList = ({products, col}) => {
 
     const productData = products;
-    
+    console.log(productData)
   return (
     <Fragment >
        {productData ? 
