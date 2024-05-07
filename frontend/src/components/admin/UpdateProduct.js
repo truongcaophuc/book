@@ -7,9 +7,11 @@ import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateProduct, getProductDetails, clearErrors } from '../../actions/productActions'
 import { UPDATE_PRODUCT_RESET } from '../../constants/productConstants'
+import { useParams, useNavigate} from 'react-router-dom'
 
-const UpdateProduct = ({ match, history }) => {
-
+const UpdateProduct = () => {
+	const params = useParams();
+	const navigate = useNavigate();
 	const [name, setName] = useState('');
 	const [price, setPrice] = useState(0);
 	const [description, setDescription] = useState('');
@@ -21,28 +23,15 @@ const UpdateProduct = ({ match, history }) => {
 	const [oldImages, setOldImages] = useState([]);
 	const [imagesPreview, setImagesPreview] = useState([])
 
-	const categories = [
-		'Electronics',
-		'Cameras',
-		'Laptops',
-		'Accessories',
-		'Headphones',
-		'Food',
-		"Books",
-		'Clothes/Shoes',
-		'Beauty/Health',
-		'Sports',
-		'Outdoor',
-		'Home'
-	]
-
+	const categories  = useSelector((state) => state.category.category);
+	console.log(categories)
 	const alert = useAlert();
 	const dispatch = useDispatch();
 
 	const { error, product } = useSelector(state => state.productDetails)
 	const { loading, error: updateError, isUpdated } = useSelector(state => state.product);
 
-	const productId = match.params.id;
+	const productId = params.id;
 
 	useEffect(() => {
 
@@ -70,12 +59,12 @@ const UpdateProduct = ({ match, history }) => {
 
 
 		if (isUpdated) {
-			history.push('/admin/products');
+			navigate('/admin/products');
 			alert.success('Product updated successfully');
 			dispatch({ type: UPDATE_PRODUCT_RESET })
 		}
 
-	}, [dispatch, alert, error, isUpdated, history, updateError, product, productId])
+	}, [dispatch, alert, error, isUpdated, navigate, updateError, product, productId])
 
 
 	const submitHandler = (e) => {
@@ -164,7 +153,7 @@ const UpdateProduct = ({ match, history }) => {
 									<label htmlFor="category_field">Category</label>
 									<select className="form-control" id="category_field" value={category} onChange={(e) => setCategory(e.target.value)}>
 										{categories.map(category => (
-											<option key={category} value={category} >{category}</option>
+											<option key={category._id} value={category.name} >{category.name}</option>
 										))}
 
 									</select>

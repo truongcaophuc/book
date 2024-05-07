@@ -42,15 +42,14 @@ const Register = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log("đăng kí thanh công")
     const formData = new FormData();
     formData.set("name", name);
     formData.set("email", email);
     formData.set("password", password);
     formData.set("avatar", avatar);
-    console.log("Dang ki thanh cong")
     dispatch(register(formData));
-    history.push("/");
+    console.log("Dang ki thanh cong")
+    history("/");
   };
 
   const onchange = (e) => {

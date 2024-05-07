@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { Button, Carousel } from "react-bootstrap";
 
+import {useParams}  from "react-router-dom"
 import Loader from "../layout/Loader";
 import MetaData from "../layout/MetaData";
 import ListReviews from "../review/ListReviews";
@@ -23,6 +24,9 @@ import Modal from '@mui/material/Modal';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 const ProductDetails = ({ match }) => {
+
+  const params = useParams();
+
   const [quantity, setQuantity] = useState(1);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
@@ -38,7 +42,7 @@ const ProductDetails = ({ match }) => {
     (state) => state.newReview
   );
   useEffect(() => {
-    dispatch(getProductDetails(match.params.id));
+    dispatch(getProductDetails(params.id));
     dispatch(getProducts());
 
     if (error) {
@@ -55,10 +59,10 @@ const ProductDetails = ({ match }) => {
       alert.success("Đánh giá của bạn đã được ghi nhận");
       dispatch({ type: NEW_REVIEW_RESET });
     }
-  }, [dispatch, alert, error, reviewError, match.params.id, success]);
+  }, [dispatch, alert, error, reviewError, params.id, success]);
 
   const addToCart = () => {
-    dispatch(addItemToCart(match.params.id, quantity));
+    dispatch(addItemToCart(params.id, quantity));
     setOpen(true);
   };
 
@@ -123,7 +127,7 @@ const ProductDetails = ({ match }) => {
 
     formData.set("rating", rating);
     formData.set("comment", comment);
-    formData.set("productId", match.params.id);
+    formData.set("productId", params.id);
 
     dispatch(newReview(formData));
   };

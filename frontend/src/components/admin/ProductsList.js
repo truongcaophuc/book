@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { MDBDataTable } from 'mdbreact'
 
 import MetaData from '../layout/MetaData'
@@ -11,8 +11,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getAdminProducts, deleteProduct, clearErrors } from '../../actions/productActions'
 import { DELETE_PRODUCT_RESET } from '../../constants/productConstants'
 
-const ProductsList = ({ history }) => {
 
+const ProductsList = () => {
+	const navigate = useNavigate();
 	const alert = useAlert();
 	const dispatch = useDispatch();
 
@@ -34,11 +35,11 @@ const ProductsList = ({ history }) => {
 
 		if (isDeleted) {
 			alert.success('Product deleted successfully');
-			history.push('/admin/products');
+			navigate('/admin/products');
 			dispatch({ type: DELETE_PRODUCT_RESET })
 		}
 
-	}, [dispatch, alert, error, deleteError, isDeleted, history])
+	}, [dispatch, alert, error, deleteError, isDeleted, navigate])
 
 	const setProducts = () => {
 		const data = {
@@ -64,6 +65,11 @@ const ProductsList = ({ history }) => {
 					sort: 'asc'
 				},
 				{
+					label: 'Category',
+					field: 'category',
+					sort: 'asc'
+				},
+				{
 					label: 'Actions',
 					field: 'actions',
 				},
@@ -77,6 +83,7 @@ const ProductsList = ({ history }) => {
 				name: product.name,
 				price: `$${product.price}`,
 				stock: product.stock,
+				category: product.category,
 				actions: <Fragment>
 					<Link to={`/admin/product/${product._id}`} className="btn btn-primary py-1 px-2">
 						<i className="fa fa-pencil"></i>

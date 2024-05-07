@@ -27,6 +27,7 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
             url: result.secure_url
         }
     })
+    console.log(user)
     sendToken(user, 200, res)
 
 })

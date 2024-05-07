@@ -30,12 +30,21 @@ exports.newProduct = catchAsyncErrors(async (req, res, next) => {
   req.body.images = imagesLinks;
   req.body.user = req.user.id;
 
-  console.log(req.body);
-  const product = await Product.create({...req.body});
-  res.status(201).json({
-    success: true,
-    product,
-  });
+  // console.log(req.body);
+  try {
+    const product = await Product.create({...req.body});
+    res.status(201).json({
+      success: true,
+      product,
+    });
+    
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: error
+    });
+  }
 });
 
 // Get all products   =>   /api/v1/products?keyword=apple
