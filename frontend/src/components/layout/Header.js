@@ -1,3 +1,21 @@
+
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Menu from '@mui/material/Menu';
+import MenuIcon from '@mui/icons-material/Menu';
+import Container from '@mui/material/Container';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import MenuItem from '@mui/material/MenuItem';
+import CollectionsBookmarkIcon from '@mui/icons-material/CollectionsBookmark';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import { Badge, MailIcon, Stack } from '@mui/material';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
 import React, { Fragment, useEffect } from "react";
 import { Route, Link } from "react-router-dom";
 
@@ -7,221 +25,246 @@ import { logout } from "../../actions/userActions";
 
 import "../../App.css";
 import { getCategory } from "../../actions/categoryActions";
+import Login from '@mui/icons-material/Login';
 
-const Header = () => {
-	const alert = useAlert();
-	const dispatch = useDispatch();
-	useEffect(() => {
-		dispatch(getCategory());
-	}, [dispatch]);
+const pages = [
+	{
+		name:"Trang chủ",
+		des:'/',
+	},
+	{
+		name:"Sản phẩm",
+		des:"/search"
+	}
+];
+const settings = ['Thông tin cá nhân', 'Tài khoản', 'ADMIN', 'Đăng xuất'];
 
-	const { isAuthenticated, user } = useSelector((state) => state.auth);
-	console.log(isAuthenticated)
-	const { category } = useSelector((state) => state.category);
-	const { cartItems } = useSelector((state) => state.cart);
+function Header() {
+  const [anchorElCat, setAnchorElCat] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-	const logoutHandler = () => {
-		dispatch(logout());
-		alert.success("Logged out successfully.");
-	};
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
 
-	return (
-		<Fragment>
-			<header
-				className="header-1 shadow-lg fixed-top mb-5"
-				style={{ backgroundColor: "#e3e1e1", padding: "0" }}
-			>
-				<div className="container-fluid">
-					<div
-						className="row"
-						style={{ justifyContent: "space-between !important" }}
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
+  const handleCloseCat = () => {
+	setAnchorElCat(null);
+  }
+
+  const alert = useAlert();
+  const dispatch = useDispatch();
+  useEffect(() => {
+	  dispatch(getCategory());
+  }, [dispatch]);
+
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
+  const { category } = useSelector((state) => state.category);
+  const { cartItems } = useSelector((state) => state.cart);
+
+  const logoutHandler = () => {
+	  dispatch(logout());
+	  alert.success("Logged out successfully.");
+  };
+
+
+  return (
+    <AppBar position='fixed'>
+		<Container maxWidth="xl">
+			<Toolbar disableGutters>
+				<CollectionsBookmarkIcon sx={{ display: {xs:"none" , md: "flex"}, mr:1}}/>
+				<Typography
+					variant='h6'
+					noWrap
+					sx={{
+						mr:2,
+						display: {xs:"none", md:"flex"},
+						fontFamily:"monospace",
+						fontWeight:700,
+						letterSpacing: '.3rem',
+						color:'inherit',
+						textDecoration:'none'
+					}}	
+				>
+					LOGO
+				</Typography>
+
+				<Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+					<IconButton
+						size="large"
+						aria-label="account of current user"
+						aria-controls="menu-appbar"
+						aria-haspopup="true"
+						onClick={handleOpenNavMenu}
+						color="inherit"
 					>
-						<div className=" col-lg-5 col-md-5 col-sm-2 col-8 d-flex align-items-center">
-							<nav className="main-nav d-none d-lg-block">
-								<ul className="d-flex align-items-center">
-									<li className="menu-item">
-										<Link to="/" className="menu-link">
-											Trang chủ
-										</Link>
-									</li>
-									<li>
-										<ul className="d-flex">
-											<li>
-												<nav className="main-nav d-none d-lg-block">
-													<ul className="d-flex align-items-center">
-														<li className="menu-item">
-															<Link to="" className="menu-link ">
-																Thể loại
-															</Link>
-															<ul className="submenu-home1">
-																{category.map((category) => (
-																	<li>
-																		<Link to={`/search/${category.name}`}>
-																			{category.name}
-																		</Link>
-																	</li>
-																))}
-															</ul>
-														</li>
-													</ul>
-												</nav>
-											</li>
-										</ul>
-									</li>
-									<li className="menu-item">
-										<Link to="/contact" className="menu-link">
-											Liên hệ
-										</Link>
-									</li>
-								</ul>
-							</nav>
-							<nav className="main-nav d-block d-lg-none">
-								<ul className="d-flex align-items-center">
-									{user ? (
-										<>
-											<li className="menu-item">
-												<a href="#" className="menu-link">
-													Menu
-												</a>
-												<ul className="submenu-home1">
-													{user && user.role !== "admin" ? (
-														<li>
-															<Link to="/orders/me">Orders</Link>
-														</li>
-													) : (
-														<li>
-															<Link to="/dashboard">Dashboard</Link>
-														</li>
-													)}
+					<MenuIcon />
+					</IconButton>
+					<Menu
+						id="menu-appbar"
+						anchorEl={anchorElNav}
+						anchorOrigin={{
+							vertical: 'bottom',
+							horizontal: 'left',
+						}}
+						keepMounted
+						transformOrigin={{
+							vertical: 'top',
+							horizontal: 'left',
+						}}
+						open={Boolean(anchorElNav)}
+						onClose={handleCloseNavMenu}
+						sx={{
+							display: { xs: 'block', md: 'none' },
+						}}
+					>
+						{pages.map((page) => (
+							<MenuItem key={page} onClick={handleCloseNavMenu}>
+								<Link to={page.des}>
+										<Typography textAlign="center">{page.name}</Typography>
+									
+								</Link>
+							</MenuItem>
+						))}
+					</Menu>
+				</Box>
+				<CollectionsBookmarkIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+				<Typography
+					variant="h5"
+					noWrap
+					component="a"
+					href="#app-bar-with-responsive-menu"
+					sx={{
+					mr: 2,
+					display: { xs: 'flex', md: 'none' },
+					flexGrow: 1,
+					fontFamily: 'monospace',
+					fontWeight: 700,
+					letterSpacing: '.3rem',
+					color: 'inherit',
+					textDecoration: 'none',
+					}}
+				>
+					LOGO
+				</Typography>
+				
+				<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+					{pages.map((page) => (
+						<Button 
+							key={page}
+							onClick={handleCloseNavMenu}
+							sx={{ my:2, color:'white', display:'block' }}
+						>
+							{page.name}		
+						</Button>
+					))}
+				</Box>
+				
+				{ user ? (
+					<>
+					<Box sx ={{flexGrow: 0, mr:2, position:'relative'}}>
 
-													<li>
-														<Link to="/me">Profile</Link>
-													</li>
-													<li>
-														<Link to="/" onClick={logoutHandler}>
-															Logout
-														</Link>
-													</li>
-												</ul>
-											</li>
-										</>
-									) : (
-										<>
-											<li className="menu-item">
-												<Link to="/login">
-													<i className="las la-user"></i>
-												</Link>
-											</li>
-										</>
-									)}
-								</ul>
-							</nav>
-						</div>
-						<div class="col-lg-2 col-md-2 col-sm-2 col-4 ">
-							<Link to="/" class="header-1-logo text-center  ">
-								<img src="/images/header-1-logo.svg" alt="" />
+					<Box title='Giỏ hàng' sx={{display:'flex', flexDirection:'row'}}> 
+						<Link style={{display:"flex"}} to="/cart">
+							<Typography mr={5}>Giỏ hàng</Typography>
+							<Badge badgeContent={cartItems.length} color="secondary">
+								<ShoppingCartOutlinedIcon/>
+							</Badge>
+						</Link>	
+					</Box>
+					</Box>
+					<Box sx ={{flexGrow: 0}}>
+						<Tooltip title="Mở cài đặt">
+							<IconButton onClick={handleOpenUserMenu} sx={{p:0}}>
+								<Avatar src='/' alt='User Avatar'></Avatar>
+							</IconButton>
+						</Tooltip>
+						<Menu
+							sx={{mt:'45px'}}
+							id='menu-appbar'
+							anchorEl={anchorElUser}
+							anchorOrigin={{
+								vertical:'top',
+								horizontal:'right'
+							}}
+							keepMounted
+							transformOrigin={{
+								vertical:'top',
+								horizontal:'right'
+							}}
+							open = {Boolean(anchorElUser)}
+							onClose={handleCloseUserMenu}
+						>	
+							{user && user.role !== 'admin' ? (
+								<MenuItem onClick={handleCloseUserMenu}>
+									<Link to="/orders/me">
+										<Typography textAlign="center">Đơn hàng</Typography>
+									</Link>
+								</MenuItem>
+								
+								
+							) : (
+								<MenuItem onClick={handleCloseUserMenu}>
+									<Link to="/dashboard">
+										<Typography textAlign="center">Trang ADMIN</Typography>
+									</Link>
+								</MenuItem>
+							)}
+							
+							
+							<MenuItem onClick={handleCloseUserMenu}>
+								<Link to="/me" >
+									<Typography textAlign="center">Tài khoản</Typography>
+								</Link>
+							</MenuItem>
+
+							<MenuItem onClick={handleCloseUserMenu}>
+								<Link to="/" onClick={logoutHandler}>
+									<Typography textAlign="center">Đăng xuất</Typography>
+								</Link>
+							</MenuItem>
+						</Menu>
+						
+						
+					</Box>
+					</>
+				) : (
+					<>
+						<Box sx ={{flexGrow: 0, display:"flex", flexDirection:"row"}} >
+							<Link to="/login">
+								<Stack display="flex" direction="row" title="Đăng nhập">
+									<Typography mr="10px">
+										Đăng ký |
+									</Typography>
+
+								</Stack>
 							</Link>
-						</div>
-						<div className=" col-lg-5 col-md-5 col-sm-8 d-sm-block d-none">
-							<div className="header-right-area d-flex justify-content-end align-items-center">
-								<div className="header-1-icons">
-									<ul className="d-flex">
-										{console.log(isAuthenticated)}
-										{isAuthenticated ? (
-											<>
-												<li>
-													<nav className="main-nav d-none d-lg-block">
-														<ul className="d-flex align-items-center">
-															<li className="menu-item">
-																<figure className="avatar avatar-nav">
-																	<img
-																		src={user.avatar && user.avatar.url}
-																		alt={user && user.name}
-																		className="rounded-circle"
-																	/>
-																</figure>
-																<Link to="" className="menu-link ">
-																	{user.name}
-																	<svg
-																		xmlns="http://www.w3.org/2000/svg"
-																		width="16"
-																		height="16"
-																		fill="currentColor"
-																		className="bi bi-caret-down-fill"
-																		viewBox="0 0 16 16"
-																	>
-																		<path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
-																	</svg>
-																</Link>
-																<ul className="submenu-home1">
-																	{user && user.role !== "admin" ? (
-																		<li>
-																			<Link to="/orders/me">Orders</Link>
-																		</li>
-																	) : (
-																		<li>
-																			<Link to="/dashboard">Dashboard</Link>
-																		</li>
-																	)}
+							<Link to="/login">
+								<Stack display="flex" direction="row" title="Đăng nhập">
+									<Typography mr="10px">
+										Đăng nhập
+									</Typography>
+									<AccountCircleIcon/>	
+								</Stack>
+							</Link>
+						</Box>	
 
-																	<li>
-																		<Link to="/me">Profile</Link>
-																	</li>
-																	<Link
-																		to="/"
-																		className="text-danger"
-																		onClick={logoutHandler}
-																	>
-																		Logout
-																	</Link>
-																</ul>
-															</li>
-														</ul>
-													</nav>
-												</li>
-											</>
-										) : (
-											<li>
-												<Link to="/login">
-													<i className="fa fa-user mt-3"></i>
-												</Link>
-											</li>
-										)}
-
-										<li>
-											<Link to="/cart" style={{ textDacoration: "none" }}>
-												<div className="cart-btn position-relative mt-3">
-													<svg
-														xmlns="http://www.w3.org/2000/svg"
-														width="16"
-														height="16"
-														fill="currentColor"
-														className="bi bi-minecart"
-														viewBox="0 0 16 16"
-													>
-														<path d="M4 15a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm0 1a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm8-1a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm0 1a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM.115 3.18A.5.5 0 0 1 .5 3h15a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 14 12H2a.5.5 0 0 1-.491-.408l-1.5-8a.5.5 0 0 1 .106-.411zm.987.82 1.313 7h11.17l1.313-7H1.102z" />
-													</svg>
-													<div className="cart-items-count">
-														{cartItems.length}
-													</div>
-												</div>
-											</Link>
-										</li>
-									</ul>
-								</div>
-								<div className="header-1-contact d-flex align-items-center">
-									<div className="contact-num">
-										<span>Hot Line Number</span>
-										<p>+92 318 1575228</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</header>
-		</Fragment>
-	);
-};
-
+					</>
+				)}
+			</Toolbar>
+		</Container>
+	</AppBar>
+  );
+}
 export default Header;

@@ -1,96 +1,103 @@
+import { Container, Grid } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
+import PhoneInTalkIcon from '@mui/icons-material/PhoneInTalk';
+import EmailIcon from '@mui/icons-material/Email';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import InstagramIcon from '@mui/icons-material/Instagram';  
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import PinterestIcon from '@mui/icons-material/Pinterest';
+import YouTubeIcon from '@mui/icons-material/YouTube';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 const Footer = () => {
   return (
     <>
       <footer className="footer-area footer-design-1">
-        <div className="container">
-          <div className="row">
-            <div className="col-xl-12 col-lg-12 col-sm-12 col-12">
-              <div className="footer-wrap">
-                <div className="row justify-content-between gy-5">
-                  <div className="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-                    <div className="single-widget">
-                      <div className="footer-title">
-                        <h3>About Buy It</h3>
-                      </div>
-                      <div className="footerabout-content">
-                        <p>
-                          Buy It Store - Pakistan's first store since 2021. We
-                          sell many Category products on our web-site.
-                        </p>
-                      </div>
-                      <div className="footer-address">
-                        <ul>
-                          <li>
-                            <i className="las la-phone-volume"></i>
-                            <span>
-                              <Link to="/">+1234 5678 9123</Link>
-                              <br />
-                              <Link to="/">+1234 5678 9123</Link>
-                            </span>
-                          </li>
-                          <li>
-                            <i className="lar la-envelope"></i>
-                            <span>
-                              <Link to="/">Student@uol.com</Link>
-                              <br />
-                              <Link to="/">info@buyit.com</Link>
-                            </span>
-                          </li>
-                          <li>
-                            <i className="las la-map-marker"></i>
-                            <span>
-                              Gulburg <br />
-                              Islamabad{" "}
-                            </span>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-xl-5 col-lg-6 col-md-12 col-sm-12 col-12">
-                    <div className="single-widget text-lg-center">
-                      <div className="footer-logo">
-                        <Link to="/">
-                          <img src="" alt="" />
-                        </Link>
-                      </div>
-                      <div className="form-design form-design-1"></div>
-                      <div className="footer-social pt-50">
-                        <ul>
-                          <li>
-                            <Link to="/">
-                              <i className="fab fa-facebook-f"></i>
-                            </Link>
-                          </li>
-                          <li>
-                            <Link to="/">
-                              <i className="fab fa-instagram"></i>
-                            </Link>
-                          </li>
-                          <li>
-                            <Link to="/">
-                              <i className="fab fa-linkedin-in"></i>
-                            </Link>
-                          </li>
-                          <li>
-                            <Link to="/">
-                              <i className="fab fa-pinterest-p"></i>
-                            </Link>
-                          </li>
-                          <li>
-                            <Link to="/">
-                              <i className="fab fa-twitter"></i>
-                            </Link>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12">
-                    <div className="single-widget">
+        <Container sx={{marginTop:"8rem"}}>
+          <Grid container p="80px 0" justifyContent="" alignItems="center">
+            <Grid item md={3}>
+              <div className="single-widget">
+                <div className="footer-title">
+                  <h3>About Buy It</h3>
+                </div>
+                <div className="footerabout-content">
+                  <p>
+                    Buy It Store - Pakistan's first store since 2021. We
+                    sell many Category products on our web-site.
+                    </p>
+                </div>
+                <div className="footer-address">
+                  <ul>
+                    <li>
+                      <PhoneInTalkIcon/>
+                        <span>
+                          <Link to="/">+1234 5678 9123</Link>
+                          <br />
+                          <Link to="/">+1234 5678 9123</Link>
+                        </span>
+                    </li>
+                    <li>
+                      <EmailIcon/>
+                        <span>
+                          <Link to="/">Student@uol.com</Link>
+                          <br />
+                          <Link to="/">info@buyit.com</Link>
+                        </span>
+                    </li>
+                    <li>
+                        <LocationOnIcon/>
+                        <span>
+                        Gulburg <br />
+                        Islamabad{" "}
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </Grid>
+            <Grid item md={7} container justifyContent="center" alignItems="center">
+              <div className="single-widget text-lg-center">
+                <div className="footer-logo">
+                  <Link to="/">
+                    <img src="" alt="" />
+                  </Link>
+                </div>
+                <div className="form-design form-design-1"></div>
+                <div className="footer-social pt-50">
+                  <ul>
+                    <li>
+                      <Link to="/">
+                        <FacebookIcon color="primary"/>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/">
+                        <InstagramIcon color="primary"/>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/">
+                        <LinkedInIcon color="secondary" fontSize="large"/>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/">
+                        <PinterestIcon color="success"/>
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/">
+                        <YouTubeIcon color="primary"/>
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </Grid>
+
+            <Grid item md={2}>
+              <div className="single-widget">
                       <div className="footer-title">
                         <h3>Company</h3>
                       </div>
@@ -119,12 +126,9 @@ const Footer = () => {
                           </li>
                         </ul>
                       </div>
-                    </div>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
+            </Grid>
+          </Grid>
           <div className="row g-3 copy-right-section align-items-center">
             <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 text-lg-start text-center">
               <div className="copy-right-area">
@@ -138,7 +142,7 @@ const Footer = () => {
               <div className="footer-card-support text-lg-end text-center"></div>
             </div>
           </div>
-        </div>
+        </Container>
       </footer>
     </>
   );

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Product from "./Product";
+import { Grid } from "@mui/material";
 
 const RelatedProducts = ({ category }) => {
   const { products } = useSelector((state) => state.products);
@@ -17,17 +18,21 @@ const RelatedProducts = ({ category }) => {
                   <h3 className="eg-title1 eg-title2 mb-50">Related Product</h3>
                 </div>
               </div>
-              <div className="row">
+              
+              <Grid container columnSpacing={{xs: 1, sm:2,md:2}} rowSpacing={{xs: 1, sm:2,md:2 }}>
                 {products.map(function (product) {
-                  if (product.category === category) {
-                    return (
-                      <>
-                        <Product key={product._id} product={product} col={3} />
-                      </>
-                    );
-                  }
-                })}
-              </div>
+                    if (product.category === category) {
+                      return (
+                        <>
+                          <Grid key={product._id} item md={2.4} xs={12} sm={4} >
+                            <Product  product={product} col={3} />
+                          </Grid>                          
+                        </>
+                      );
+                    }
+                  })}
+              </Grid>
+               
             </div>
           </section>
         </>
