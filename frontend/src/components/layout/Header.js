@@ -83,7 +83,6 @@ function Header() {
     <AppBar position='fixed'>
 		<Container maxWidth="xl">
 			<Toolbar disableGutters>
-				<CollectionsBookmarkIcon sx={{ display: {xs:"none" , md: "flex"}, mr:1}}/>
 				<Typography
 					variant='h6'
 					noWrap
@@ -97,7 +96,7 @@ function Header() {
 						textDecoration:'none'
 					}}	
 				>
-					LOGO
+					<img src="images/logo.png"width="50px"className="rounded-[50%] ml-[32px]"></img>
 				</Typography>
 
 				<Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>

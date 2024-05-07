@@ -82,7 +82,7 @@ const Home = ({ match }) => {
           <MetaData title={"Shop sách online"} />
           {ishome && (
             <Banner
-              src="https://res.cloudinary.com/hba-solver/image/upload/v1657880938/banner/bg1_jszeky.png"
+              src="/images/banner/banner.png"
               search="true"
               text="Mang đến tri thức cho bạn"
               text2="Vận chuyển đến bạn tất cả các ngày trong tuần"
