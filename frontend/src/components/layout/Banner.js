@@ -20,11 +20,7 @@ const Banner = ({ src, search, text, text2 }) => {
           <div class="hero-content-wrap">
             <h2>{text}</h2>
             <p>{text2}</p>
-            {search === "true" ? (
-               <Search  />
-            ) : (
-              <></>
-            )}
+            
           </div>
         </div>
       </div>

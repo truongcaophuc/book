@@ -4,24 +4,24 @@ import { Link } from 'react-router-dom'
 import MetaData from '../layout/MetaData'
 import Loader from '../layout/Loader'
 import Sidebar from './Sidebar'
-import { useParams } from 'react-router-dom';
+
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { getOrderDetails, updateOrder, clearErrors } from '../../actions/orderActions'
 import { UPDATE_ORDER_RESET } from '../../constants/orderConstants'
 
-const ProcessOrder = () => {
-	const { id } = useParams();
+const ProcessOrder = ({ match }) => {
+
 	const [status, setStatus] = useState('');
 
 	const alert = useAlert();
 	const dispatch = useDispatch();
 
 	const { loading, order = {} } = useSelector(state => state.orderDetails)
-	const { shippingInfo, orderItems, paymentInfo, user, totalPrice, orderStatus,paidAt } = order
+	const { shippingInfo, orderItems, paymentInfo, user, totalPrice, orderStatus } = order
 	const { error, isUpdated } = useSelector(state => state.order)
 
-	const orderId = id;
+	const orderId = match.params.id;
 
 	useEffect(() => {
 
@@ -50,7 +50,7 @@ const ProcessOrder = () => {
 	}
 
 	const shippingDetails = shippingInfo && `${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.postalCode}, ${shippingInfo.country}`
-	const isPaid = paidAt ? true : false
+	const isPaid = paymentInfo && paymentInfo.status === 'succeeded' ? true : false
 
 	return (
 		<Fragment>

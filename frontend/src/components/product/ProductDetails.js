@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { Carousel } from "react-bootstrap";
+import { Button, Carousel } from "react-bootstrap";
 
 import Loader from "../layout/Loader";
 import MetaData from "../layout/MetaData";
@@ -15,9 +15,14 @@ import {
 import { addItemToCart } from "../../actions/cartActions";
 import { NEW_REVIEW_RESET } from "../../constants/productConstants";
 import RelatedProducts from "./RelatedProducts";
-import {useParams} from "react-router-dom"
-const ProductDetails = () => {
-  const {id}=useParams()
+import { Box, IconButton, Link, Rating, Stack, Typography } from "@mui/material";
+import { AddShoppingCartOutlined } from "@mui/icons-material";
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import Modal from '@mui/material/Modal';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+
+const ProductDetails = ({ match }) => {
   const [quantity, setQuantity] = useState(1);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
@@ -33,7 +38,7 @@ const ProductDetails = () => {
     (state) => state.newReview
   );
   useEffect(() => {
-    dispatch(getProductDetails(id));
+    dispatch(getProductDetails(match.params.id));
     dispatch(getProducts());
 
     if (error) {
@@ -47,14 +52,14 @@ const ProductDetails = () => {
     }
 
     if (success) {
-      alert.success("Reivew posted successfully");
+      alert.success("Đánh giá của bạn đã được ghi nhận");
       dispatch({ type: NEW_REVIEW_RESET });
     }
-  }, [dispatch, alert, error, reviewError,id, success]);
+  }, [dispatch, alert, error, reviewError, match.params.id, success]);
 
   const addToCart = () => {
-    dispatch(addItemToCart(id, quantity));
-    alert.success("Item Added to Cart");
+    dispatch(addItemToCart(match.params.id, quantity));
+    setOpen(true);
   };
 
   const increaseQty = () => {
@@ -118,10 +123,28 @@ const ProductDetails = () => {
 
     formData.set("rating", rating);
     formData.set("comment", comment);
-    formData.set("productId", id);
+    formData.set("productId", match.params.id);
 
     dispatch(newReview(formData));
   };
+
+  const [value, setValue] = React.useState(2);
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    borderRadius:"10px",
+    p: 4,
+    justifyContent:"center"
+  };
+
 
   return (
     <Fragment>
@@ -171,15 +194,14 @@ const ProductDetails = () => {
                 <div className="col-lg-6">
                   <div className="prod-details-content">
                     <ul className="product-review2 d-flex flex-row align-items-center mb-25">
-                      <div className="rating-outer">
-                        <div
-                          className="rating-inner"
-                          style={{ width: `${(product.ratings / 5) * 100}%` }}
-                        ></div>
-                      </div>
+                      <Rating
+                        value={product.ratings}
+                      >
+
+                      </Rating>
                       <li>
                         <a href="#" className="review-no"></a> (
-                        {product.numofReviews} Review)
+                        {product.numOfReviews} Đánh giá)
                       </li>
                     </ul>
                     <h3 className="eg-title1 mb-25">{product.name}</h3>
@@ -189,65 +211,66 @@ const ProductDetails = () => {
                     </h4>
                     <p className="para2 mb-15">{product.description}</p>
                     <div className="prod-quantity d-flex align-items-center justify-content-start mb-20">
-                      <div className="quantity">
+                      <Stack direction="row" spacing={2}>
+                        
+                        <button
+                            onClick={decreaseQty}
+                            style={{ border: "none", background: "none" }}
+                          >
+                            <RemoveIcon/>
+                          </button>
+                      
                         <input
+                          style={{width:"60px"}}
                           className="count p-1"
                           type="number"
                           value={quantity}
                           readOnly
                         />
-                        <div
-                          className="d-flex"
-                          style={{ flexDirection: "column" }}
-                        >
-                          <button
+
+                        <button
                             onClick={increaseQty}
                             style={{ border: "none", background: "none" }}
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="7"
-                              height="7"
-                              fill="currentColor"
-                              className="bi bi-chevron-up"
-                              viewBox="0 0 16 16"
-                            >
-                              <path
-                                fill-rule="evenodd"
-                                d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"
-                              />
-                            </svg>
-                          </button>
-                          <button
-                            onClick={decreaseQty}
-                            style={{ border: "none", background: "none" }}
-                          >
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="7"
-                              height="7"
-                              fill="currentColor"
-                              className="bi bi-chevron-down"
-                              viewBox="0 0 16 16"
-                            >
-                              <path
-                                fill-rule="evenodd"
-                                d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"
-                              />
-                            </svg>
-                          </button>
-                        </div>
-                      </div>
-                      <button
-                        className="bg-[orange] text-[white] px-[16px] py-[8px] hover:text-[orange] hover:bg-[white] hover:border-[orange] border-[2px] ml-[8px]"
+                        >
+                            <AddIcon/>
+                        </button>
+
+                      </Stack>
+                      
+                      <Modal
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                      >
+                        <Box sx={style}>
+                          <Box sx={{ textAlign: 'center' }}> {/* Căn giữa icon */}
+                            <CheckCircleOutlineIcon className="modal-icon" color="success" sx={{ fontSize: '100px'}} />
+                          </Box>
+                          <Box textAlign="center">
+                            <Typography id="modal-modal-title" variant="h6" component="h2">
+                              Thành công
+                            </Typography>
+                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                              Sản phẩm đã được thêm vào giỏ hàng.
+                            </Typography>
+                          </Box>  
+                        </Box>
+                      </Modal>
+
+                      <Button
+                        className="add-cart-btn"
                         onClick={addToCart}
                         disabled={product.stock === 0}
-                        
                       >
-                       
-                          Add to cart
-                      
-                      </button>
+                          
+                          <Box display="flex" flexDirection="row">
+                            <AddShoppingCartOutlined/>
+                            <Typography>
+                              Thêm vào giỏ hàng
+                            </Typography>
+                          </Box>
+                      </Button>
                     </div>
                     <ul className="prod-info">
                       <li>
@@ -274,11 +297,15 @@ const ProductDetails = () => {
                             data-target="#ratingModal"
                             onClick={setUserRatings}
                           >
-                            Submit Your Review
+                            Gửi đánh giá của bạn
                           </button>
                         ) : (
                           <div className="alert alert-danger mt-5" type="alert">
-                            Login to post your review.
+                            <strong> 
+                              <Link to='login'>
+                                Đăng nhập
+                              </Link>
+                            </strong> để đánh giá sản phẩm
                           </div>
                         )}
                       </li>
@@ -300,7 +327,7 @@ const ProductDetails = () => {
                                   className="modal-title"
                                   id="ratingModalLabel"
                                 >
-                                  Submit Review
+                                  Gửi đánh giá
                                 </h5>
                                 <button
                                   type="button"
@@ -344,7 +371,7 @@ const ProductDetails = () => {
                                   data-dismiss="modal"
                                   aria-label="Close"
                                 >
-                                  Submit
+                                  Gửi
                                 </button>
                               </div>
                             </div>

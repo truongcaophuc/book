@@ -1,14 +1,16 @@
 import React, { Fragment, useState } from 'react'
 import { countries } from 'countries-list'
-import {useNavigate} from "react-router-dom"
+
 import MetaData from '../layout/MetaData'
 import CheckoutSteps from './CheckoutSteps'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { saveShippingInfo } from '../../actions/cartActions'
+import {useNavigate} from 'react-router-dom'
 
 const Shipping = () => {
-   const navigate=useNavigate()
+
+    const history = useNavigate();
     const countriesList = Object.values(countries)
 
     const { shippingInfo } = useSelector(state => state.cart)
@@ -25,22 +27,22 @@ const Shipping = () => {
         e.preventDefault()
 
         dispatch(saveShippingInfo({ address, city, phoneNo, postalCode, country }))
-        navigate('/confirm')
+        history('/confirm')
     }
 
     return (
         <Fragment>
 
-            <MetaData title={'Shipping Info'} />
+            <MetaData title={'Thông tin vận chuyển'} />
 
             <CheckoutSteps shipping />
 
             <div className="row wrapper">
                 <div className="col-10 col-lg-5">
-                    <form className="shadow-lg" onSubmit={submitHandler}>
-                        <h1 className="mb-4">Shipping Info</h1>
+                    <form className="shadow-lg shipping-form" onSubmit={submitHandler}>
+                        <h1 className="mb-4">Thông tin vận chuyển</h1>
                         <div className="form-group">
-                            <label htmlFor="address_field">Address</label>
+                            <label htmlFor="address_field">Địa chỉ</label>
                             <input
                                 type="text"
                                 id="address_field"
@@ -52,7 +54,7 @@ const Shipping = () => {
                         </div>
 
                         <div className="form-group">
-                            <label htmlFor="city_field">City</label>
+                            <label htmlFor="city_field">Thành phố</label>
                             <input
                                 type="text"
                                 id="city_field"
@@ -64,7 +66,7 @@ const Shipping = () => {
                         </div>
 
                         <div className="form-group">
-                            <label htmlFor="phone_field">Phone No</label>
+                            <label htmlFor="phone_field">Số điện thoại</label>
                             <input
                                 type="phone"
                                 id="phone_field"
@@ -75,7 +77,7 @@ const Shipping = () => {
                             />
                         </div>
 
-                        <div className="form-group">
+                        {/* <div className="form-group">
                             <label htmlFor="postal_code_field">Postal Code</label>
                             <input
                                 type="number"
@@ -85,10 +87,10 @@ const Shipping = () => {
                                 onChange={(e) => setPostalCode(e.target.value)}
                                 required
                             />
-                        </div>
+                        </div> */}
 
                         <div className="form-group">
-                            <label htmlFor="country_field">Country</label>
+                            <label htmlFor="country_field">Quốc Gia</label>
                             <select
                                 id="country_field"
                                 className="form-control"
@@ -111,7 +113,7 @@ const Shipping = () => {
                             type="submit"
                             className="btn btn-block py-3"
                         >
-                            CONTINUE
+                            Tiếp tục 
                             </button>
                     </form>
                 </div>

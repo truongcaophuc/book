@@ -10,10 +10,9 @@ import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAdminProducts, deleteProduct, clearErrors } from '../../actions/productActions'
 import { DELETE_PRODUCT_RESET } from '../../constants/productConstants'
-import {useNavigate} from "react-router-dom"
 
-const ProductsList = () => {
-    const navigate=useNavigate()
+const ProductsList = ({ history }) => {
+
 	const alert = useAlert();
 	const dispatch = useDispatch();
 
@@ -35,11 +34,11 @@ const ProductsList = () => {
 
 		if (isDeleted) {
 			alert.success('Product deleted successfully');
-			navigate('/admin/products');
+			history.push('/admin/products');
 			dispatch({ type: DELETE_PRODUCT_RESET })
 		}
 
-	}, [dispatch, alert, error, deleteError, isDeleted])
+	}, [dispatch, alert, error, deleteError, isDeleted, history])
 
 	const setProducts = () => {
 		const data = {
@@ -106,7 +105,7 @@ const ProductsList = () => {
 
 				<div className="col-12 col-md-10 mt-5">
 					<Fragment>
-						<h1 className="my-5">All Products</h1>
+						<h1 className="my-5">Tất cả sản phẩm</h1>
 
 						{loading ? <Loader /> : (
 							<MDBDataTable

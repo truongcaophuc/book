@@ -5,7 +5,7 @@ import MetaData from "../layout/MetaData";
 import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
 import { register, clearErrors } from "../../actions/userActions";
-import { Link ,useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [user, setUser] = useState({
@@ -27,18 +27,18 @@ const Register = () => {
   const { isAuthenticated, error, loading } = useSelector(
     (state) => state.auth
   );
-  const navigate=useNavigate();
+  const history = useNavigate();
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/");
+      history("/");
     }
 
     if (error) {
       alert.error(error);
       dispatch(clearErrors());
     }
-  }, [dispatch, alert, isAuthenticated, error]);
+  }, [dispatch, alert, isAuthenticated, error, history]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -50,7 +50,7 @@ const Register = () => {
     formData.set("avatar", avatar);
     console.log("Dang ki thanh cong")
     dispatch(register(formData));
-    navigate("/");
+    history.push("/");
   };
 
   const onchange = (e) => {
@@ -74,7 +74,7 @@ const Register = () => {
     <Fragment>
       <MetaData title={"Register User"} />
 
-      <h3 className="title-30 text-center mb-35">Register Your Account</h3>
+      <h3 className="title-30 text-center mb-35">Đăng kí tài khoản</h3>
 
       <form
         className="login-form"
@@ -144,7 +144,7 @@ const Register = () => {
                   onChange={onchange}
                 />
                 <label className="custom-file-label" htmlFor="customFile">
-                  Choose Avatar
+                  Chọn avatar
                 </label>
               </div>
             </div>
@@ -154,10 +154,10 @@ const Register = () => {
               <button
                 className="px-[16px] py-[16px] text-[white] hover:opacity-[0.8]"
                 type="submit"
-                style={{ border: "none", background: "orange" }}
+                style={{ border: "none", background: "#1976D2" }}
                 // disabled={loading ? true : false}
               >
-                  CREATE AN ACCOUNT
+                  Tạo tài khoản
          
               </button>
             </div>

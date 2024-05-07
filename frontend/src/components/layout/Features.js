@@ -1,12 +1,12 @@
+import { Box, Container, Grid } from "@mui/material";
 import React from "react";
 
 const Features = () => {
   return (
-    <div class="feature-area feature-style-one mb-100 pt-76">
-      <div style={{ width: "80%", marginLeft: "auto", marginRight: "auto" }}>
-        <div class="row">
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="feature-card-alpha">
+    <Container className="feature-area feature-style-one mb-100 pt-76">
+      <Grid container display="flex">
+        <Grid item md={3}> 
+        <div class="feature-card-alpha">
               <div class="feature-icon">
                 <img
                   src="https://res.cloudinary.com/hba-solver/image/upload/v1657877004/features/feature-i1_kuhehk.svg"
@@ -18,9 +18,9 @@ const Features = () => {
                 <p>Around the world</p>
               </div>
             </div>
-          </div>
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="feature-card-alpha">
+        </Grid>
+        <Grid md={3}>
+        <div class="feature-card-alpha">
               <div class="feature-icon">
                 <img
                   src="https://res.cloudinary.com/hba-solver/image/upload/v1657877004/features/feature-i2_a22qln.svg"
@@ -32,9 +32,9 @@ const Features = () => {
                 <p>Contact us 24 hours</p>
               </div>
             </div>
-          </div>
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="feature-card-alpha">
+        </Grid>
+        <Grid md={3}>
+        <div class="feature-card-alpha">
               <div class="feature-icon">
                 <img
                   src="https://res.cloudinary.com/hba-solver/image/upload/v1657877004/features/feature-i3_n1cql4.svg"
@@ -46,9 +46,10 @@ const Features = () => {
                 <p>Guarantee of money retun</p>
               </div>
             </div>
-          </div>
-          <div class="col-lg-3 col-md-6 col-sm-6">
-            <div class="feature-card-alpha">
+        </Grid>
+
+        <Grid md={3}>
+          <div class="feature-card-alpha">
               <div class="feature-icon">
                 <img
                   src="https://res.cloudinary.com/hba-solver/image/upload/v1657877004/features/feature-i4_aavhpz.svg"
@@ -60,10 +61,9 @@ const Features = () => {
                 <p>Your payment are safe with us.</p>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
+        </Grid>
+      </Grid>
+    </Container>
   );
 };
 

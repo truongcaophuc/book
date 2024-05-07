@@ -4,7 +4,7 @@ import { MDBDataTable } from "mdbreact";
 import MetaData from "../layout/MetaData";
 import Loader from "../layout/Loader";
 import Sidebar from "./Sidebar";
-import {useNavigate} from "react-router-dom"
+
 import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -13,10 +13,11 @@ import {
 	clearErrors,
 } from "../../actions/categoryActions";
 import { DELETE_CATEGORY_RESET } from "../../constants/categoryConstants";
-const CategorysList = () => {
+
+const CategorysList = ({ history }) => {
 	const alert = useAlert();
 	const dispatch = useDispatch();
-    const navigate=useNavigate()
+
 	const { loading, error, category } = useSelector((state) => state.category);
 	const { error: deleteError, isDeleted } = useSelector(
 		(state) => state.dltCategory
@@ -37,10 +38,10 @@ const CategorysList = () => {
 
 		if (isDeleted) {
 			alert.success("Category deleted successfully");
-			navigate("/admin/Category");
+			history.push("/admin/Category");
 			dispatch({ type: DELETE_CATEGORY_RESET });
 		}
-	}, [dispatch, alert, error, deleteError, isDeleted]);
+	}, [dispatch, alert, error, deleteError, isDeleted, history]);
 
 	const setCategorys = () => {
 		const data = {

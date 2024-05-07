@@ -9,9 +9,9 @@ import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProductReviews, deleteReview, clearErrors } from '../../actions/productActions'
 import { DELETE_REVIEW_RESET } from '../../constants/productConstants'
-import {useNavigate} from "react-router-dom"
+
 const ProductReviews = () => {
-    const navigate=useNavigate()
+
 	const [productId, setProductId] = useState('')
 
 	const alert = useAlert();

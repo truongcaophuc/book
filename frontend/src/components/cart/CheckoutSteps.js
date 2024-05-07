@@ -5,7 +5,7 @@ const CheckoutSteps = ({ shipping, confirmOrder, payment }) => {
   return (
     <div
       className="checkout-progress d-flex justify-content-center "
-      style={{ marginTop: "200px" }}
+      style={{ marginTop: "100px" }}
     >
       {shipping ? (
         <Link to="shippping" className="float-right">

@@ -1,14 +1,14 @@
 import React, { Fragment, useState, useEffect } from 'react'
 
 import MetaData from '../layout/MetaData'
-import {useNavigate} from "react-router-dom"
+
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { updatePassword, clearErrors } from '../../actions/userActions'
 import { UPDATE_PASSWORD_RESET } from '../../constants/userConstants'
 
-const UpdatePassword = () => {
-    const navigate=useNavigate()
+const UpdatePassword = ({ history }) => {
+
     const [oldPassword, setOldPassword] = useState('')
     const [password, setPassword] = useState('')
 
@@ -27,14 +27,14 @@ const UpdatePassword = () => {
         if (isUpdated) {
             alert.success('Password updated successfully')
 
-            navigate('/me')
+            history.push('/me')
 
             dispatch({
                 type: UPDATE_PASSWORD_RESET
             })
         }
 
-    }, [dispatch, alert, error, isUpdated])
+    }, [dispatch, alert, error, history, isUpdated])
 
     const submitHandler = (e) => {
         e.preventDefault();

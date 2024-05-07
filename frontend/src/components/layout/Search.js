@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import {useNavigate} from "react-router-dom"
-const Search = () => {
+
+const Search = ({ history }) => {
   const [keyword, setKeyword] = useState("");
- const navigate=useNavigate()
+
   const searchHandler = (e) => {
     e.preventDefault();
 
     if (keyword.trim()) {
-      navigate(`/search/${keyword}`);
+      history.push(`/search/${keyword}`);
     } else {
-      navigate("/");
+      history.push("/");
     }
   };
 
@@ -18,12 +18,12 @@ const Search = () => {
       <div class="hero-search-form search-form-style-one">
         <input
           type="text"
-          placeholder="Search Your Products..."
+          placeholder="Tìm kiếm sản phẩm ..."
           class="search-field"
           onChange={(e) => setKeyword(e.target.value)}
         />
         <button type="submit" class="search-submit" onClick={searchHandler}>
-          SEARCH
+          Tìm kiếm
         </button>
       </div>
     </form>

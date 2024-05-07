@@ -6,25 +6,28 @@ import "rc-slider/assets/index.css";
 import MetaData from "./layout/MetaData";
 import Product from "./product/Product";
 import Loader from "./layout/Loader";
+import ProductList from "./product/ProductList"
 
 import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
 import { getProducts } from "../actions/productActions";
 import { getCategory } from "../actions/categoryActions";
 import Banner from "./layout/Banner";
-import { useLocation,useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import CategorySection from "./layout/CategorySection";
 import Features from "./layout/Features";
+import { Container } from "@mui/material";
+
 const { createSliderWithTooltip } = Slider;
 const Range = createSliderWithTooltip(Slider.Range);
 
-const Home = () => {
-  const params = useParams();
+const Home = ({ match }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [price, setPrice] = useState([1, 100000]);
+  const [price, setPrice] = useState([1, 10000]);
   const [catagory, setCatagory] = useState("");
   const [rating, setRating] = useState(0);
   const location = useLocation();
+
   const { category } = useSelector((state) => state.category);
 
   const alert = useAlert();
@@ -39,7 +42,17 @@ const Home = () => {
     filteredProductsCount,
   } = useSelector((state) => state.products);
 
+  const params = useParams();
+
   const keyword = params.keyword;
+  useEffect(() => {
+    if (error) {
+      return alert.error(error);
+    }
+    dispatch(getProducts(keyword, currentPage, price, catagory, rating));
+  }, [dispatch, alert, error, keyword, currentPage, price, catagory, rating]);
+
+  console.log("sản phẩm :",products)
   useEffect(() => {
     if (error) {
       return alert.error(error);
@@ -66,21 +79,21 @@ const Home = () => {
         <Loader />
       ) : (
         <Fragment>
-          <MetaData title={"Buy Best Products Online"} />
+          <MetaData title={"Shop sách online"} />
           {ishome && (
             <Banner
               src="https://res.cloudinary.com/hba-solver/image/upload/v1657880938/banner/bg1_jszeky.png"
               search="true"
-              text="Enjoy Your Shopping With The Best Quality"
-              text2="Get your products delivered at your shopsteps all day everyday"
+              text="Mang đến tri thức cho bạn"
+              text2="Vận chuyển đến bạn tất cả các ngày trong tuần"
             />
           )}
-          {ishome && <CategorySection setCatagory={setCatagory}/>}
+          {ishome && <CategorySection />}
           {ishome ? (
             <div class="col-lg-12 mt-5">
               <div class="section-head-style-one">
-                <h2>Best Deals This Week!</h2>
-                <p>A virtual assistant collects the product from your list</p>
+                <h2>Các cuốn sách best seller!</h2>
+                <p>Các cuốn sách được độc giả yêu thích nhất</p>
               </div>
             </div>
           ) : (
@@ -94,26 +107,25 @@ const Home = () => {
               }
               <div class="col-lg-12 mt-5">
                 <div class="section-head-style-one">
-                  <h2>Product List</h2>
+                  <h2>Danh sách sản phẩm</h2>
                 </div>
               </div>
             </>
           )}
 
-          <section id="products" className="container mt-5">
-            <div className="row">
-              {keyword ? (
+        <Container>
+            {keyword ? (
                 <Fragment>
                   <div className="col-6 col-md-3 mt-5 mb-5">
                     <div className="px-5">
                       <Range
                         marks={{
                           1: `$1`,
-                          100000: `$100000`,
+                          10000: `$10000`,
                         }}
                         min={1}
-                        max={100000}
-                        defaultValue={[1, 100000]}
+                        max={10000}
+                        defaultValue={[1, 10000]}
                         tipFormatter={(value) => `$${value}`}
                         tipProps={{
                           placement: "top",
@@ -173,24 +185,21 @@ const Home = () => {
                       </div>
                     </div>
                   </div>
-
+                
                   <div className="col-6 col-md-9">
                     <div className="row">
                       {products.map((product) => (
-                        <Product key={product._id} product={product} col={4} />
+                        <ProductList key={product._id} product={product} col={4} />
                       ))}
                     </div>
                   </div>
                 </Fragment>
               ) : (
                 <>
-                  {products.map((product) => (
-                    <Product key={product._id} product={product} col={3} />
-                  ))}
+                  <ProductList products={products} col={2}/>
                 </>
               )}
-            </div>
-          </section>
+          </Container>
 
           {resPerPage <= count && (
             <div className="d-flex justify-content-center mt-5">

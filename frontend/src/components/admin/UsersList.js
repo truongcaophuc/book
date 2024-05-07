@@ -10,10 +10,9 @@ import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { allUsers, deleteUser, clearErrors } from '../../actions/userActions'
 import { DELETE_USER_RESET } from '../../constants/userConstants'
-import {useNavigate} from "react-router-dom"
 
 const UsersList = ({ history }) => {
-    const navigate=useNavigate()
+
 	const alert = useAlert();
 	const dispatch = useDispatch();
 
@@ -30,11 +29,11 @@ const UsersList = ({ history }) => {
 
 		if (isDeleted) {
 			alert.success('User deleted successfully');
-			navigate('/admin/users');
+			history.push('/admin/users');
 			dispatch({ type: DELETE_USER_RESET })
 		}
 
-	}, [dispatch, alert, error, isDeleted])
+	}, [dispatch, alert, error, isDeleted, history])
 
 	const deleteUserHandler = (id) => {
 		dispatch(deleteUser(id))
