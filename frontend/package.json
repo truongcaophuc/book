@@ -7,7 +7,10 @@
     "@emotion/styled": "^11.11.5",
     "@mui/icons-material": "^5.15.16",
     "@mui/material": "^5.15.16",
+<<<<<<< HEAD
+=======
     "@mui/x-charts": "^7.3.2",
+>>>>>>> f558fb38ed6d5c4716eaf0b28aa8c6b99593c5a4
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.5.0",
