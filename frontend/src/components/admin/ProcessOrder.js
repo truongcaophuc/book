@@ -56,8 +56,8 @@ const ProcessOrder = () => {
 
 	return (
 		<Fragment>
-			<MetaData title={`Process Order # ${order && order._id}`} />
-			<div className="row mt-5">
+			<MetaData title={`Chi tiết đơn # ${order && order._id}`} />
+			<div className="row mt-5 bg-white">
 				<div className="col-12 col-md-2 mt-4">
 					<Sidebar />
 				</div>
@@ -66,30 +66,32 @@ const ProcessOrder = () => {
 					<Fragment>
 						{loading ? <Loader /> : (
 							<div className="row d-flex justify-content-around">
-								<div className="col-12 col-lg-7 order-details">
+								<div className="col-12 col-lg-7 order-details bg-white" 
+									
+								>
 
-									<h2 className="my-5">Order # {order._id}</h2>
+									<h2 className="my-5">Đơn hàng # {order._id}</h2>
 
-									<h4 className="mb-4">Shipping Info</h4>
-									<p><b>Name:</b> {user && user.name}</p>
-									<p><b>Phone:</b> {shippingInfo && shippingInfo.phoneNo}</p>
+									<h4 className="mb-4">Thông tin vận chuyển</h4>
+									<p><b>Tên:</b> {user && user.name}</p>
+									<p><b>Số điện thoại:</b> {shippingInfo && shippingInfo.phoneNo}</p>
 									<p className="mb-4"><b>Address:</b>{shippingDetails}</p>
-									<p><b>Amount:</b> ${totalPrice}</p>
+									<p><b>Tổng giá tiền:</b> ${totalPrice}</p>
 
 									<hr />
 
-									<h4 className="my-4">Payment</h4>
-									<p className={isPaid ? "greenColor" : "redColor"}><b>{isPaid ? "PAID" : "NOT PAID"}</b></p>
+									<h4 className="my-4">Thanh toán</h4>
+									<p className={isPaid ? "greenColor" : "redColor"}><b>{isPaid ? "ĐÃ THANH TOÁN" : "CHƯA THANH TOÁN"}</b></p>
 
 									<h4 className="my-4">Stripe ID</h4>
 									<p><b>{paymentInfo && paymentInfo.id}</b></p>
 
-									<h4 className="my-4">Order Status:</h4>
+									<h4 className="my-4">Trạng thái đơn hàng:</h4>
 									<p className={order.orderStatus && String(order.orderStatus).includes('Delivered') ? "greenColor" : "redColor"} ><b>{orderStatus}</b></p>
 
 
 
-									<h4 className="my-4">Order Items:</h4>
+									<h4 className="my-4">Chi tiết đơn hàng:</h4>
 
 									<hr />
 									<div className="cart-item my-1">
@@ -105,7 +107,7 @@ const ProcessOrder = () => {
 
 
 												<div className="col-4 col-lg-2 mt-4 mt-lg-0">
-													<p>${item.price}</p>
+													<p>{item.price} đ</p>
 												</div>
 
 												<div className="col-4 col-lg-3 mt-4 mt-lg-0">
@@ -117,8 +119,10 @@ const ProcessOrder = () => {
 									<hr />
 								</div>
 
-								<div className="col-12 col-lg-3 mt-5">
-									<h4 className="my-4">Status</h4>
+								<div className="col-12 col-lg-4 bg-white" 
+									
+								>
+									<h4 className="my-4"><b> Trạng thái đơn hàng </b></h4>
 
 									<div className="form-group">
 										<select
@@ -127,14 +131,14 @@ const ProcessOrder = () => {
 											value={status}
 											onChange={(e) => setStatus(e.target.value)}
 										>
-											<option value="Processing">Processing</option>
-											<option value="Shipped">Shipped</option>
-											<option value="Delivered">Delivered</option>
+											<option value="Processing">Đang vận chuyển</option>
+											<option value="Shipped">Đã giao</option>
+											<option value="Delivered">Đã nhận</option>
 										</select>
 									</div>
 
 									<button className="btn btn-primary btn-block" onClick={() => updateOrderHandler(order._id)}>
-										Update Status
+										Cập nhật trạng thái
 									</button>
 								</div>
 

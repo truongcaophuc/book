@@ -16,7 +16,10 @@ import Banner from "./layout/Banner";
 import { useLocation, useParams } from "react-router-dom";
 import CategorySection from "./layout/CategorySection";
 import Features from "./layout/Features";
-import { Container, Grid } from "@mui/material";
+import { Container, FormControlLabel, FormGroup, Grid } from "@mui/material";
+import Banner2 from "./layout/Banner2"
+import Checkbox from "@mui/material/Checkbox";
+import InputSlider from "./layout/InputSlider";
 
 const { createSliderWithTooltip } = Slider;
 const Range = createSliderWithTooltip(Slider.Range);
@@ -71,6 +74,10 @@ const Home = () => {
     ishome = true;
   }
 
+  const handleChange = (catName) => {
+    setCatagory(catName);
+  };
+
   return (
     <Fragment>
       {loading ? (
@@ -79,12 +86,13 @@ const Home = () => {
         <Fragment>
           <MetaData title={"Shop sách online"} />
           {ishome && (
-            <Banner
-              src="/images/banner/banner.png"
-              search="true"
-              text="Mang đến tri thức cho bạn"
-              text2="Vận chuyển đến bạn tất cả các ngày trong tuần"
-            />
+            <Banner2/>
+            // <Banner
+            //   src="/images/banner/banner.png"
+            //   search="true"
+            //   text="Mang đến tri thức cho bạn"
+            //   text2="Vận chuyển đến bạn tất cả các ngày trong tuần"
+            // />
           )}
           {ishome && <CategorySection setCatagory={setCatagory}/>}
           {ishome ? (
@@ -97,13 +105,13 @@ const Home = () => {
           ) : (
             <>
               {
-                <Banner
-                  src="https://res.cloudinary.com/hba-solver/image/upload/v1657882267/banner/bg2_a9w4ja.png"
-                  search="false"
-                  text="Search Items"
-                />
+                // <Banner
+                //   src="https://res.cloudinary.com/hba-solver/image/upload/v1657882267/banner/bg2_a9w4ja.png"
+                //   search="false"
+                //   text="Search Items"
+                // />
               }
-              <div class="col-lg-12 mt-5">
+              <div class="col-lg-12 mt-100">
                 <div class="section-head-style-one">
                   <h2>Danh sách sản phẩm</h2>
                 </div>
@@ -114,16 +122,15 @@ const Home = () => {
         <Container>
             {keyword ? (
                 <Fragment>
-                  
                   <Grid container>
                     <Grid item md={3} my={3}>
-                    
                     <div className="px-5">
-                      <Range
+                    <InputSlider price={price} setPrice={setPrice}/>
+                      {/* <Range
                         marks={{
                           1: `$1`,
                           1000000: `${maxPrice}`,
-                        }}
+                        }} 
                         min={1}
                         max={maxPrice}
                         defaultValue={[1, maxPrice]}
@@ -134,14 +141,34 @@ const Home = () => {
                         }}
                         value={price}
                         onChange={(price) => setPrice(price)}
-                      />
+                      /> */}
 
                       <hr className="my-5" />
 
                       <div className="mt-5">
-                        <h4 className="mb-3">Categories</h4>
+                        <h4 className="mb-3" 
+                          style={{color:"#1976d2", fontSize:"22px", fontWeight:"700"}}
+                        >
+                           mục
+                        </h4>
+                        
+                        <FormGroup>
+                          {category.map((cat) => (
+                            <FormControlLabel
+                              sx={{color:"#0F0F0F"}}
+                              key={cat._id}
+                              control={
+                                <Checkbox
+                                  onChange={() => setCatagory(cat.name)}
+                                  checked={catagory == cat.name}
+                                />
+                              }
+                              label={cat.name}
+                            />
+                          ))}
+                        </FormGroup>
 
-                        <ul className="pl-0">
+                        {/* <ul className="pl-0">
                           {category.map((category) => (
                             <li
                               style={{
@@ -154,7 +181,7 @@ const Home = () => {
                               {category.name}
                             </li>
                           ))}
-                        </ul>
+                        </ul> */}
                       </div>
 
                       <hr className="my-3" />
@@ -194,7 +221,7 @@ const Home = () => {
                 </Fragment>
               ) : (
                 <>
-                  <ProductList products={products} col={2}/>
+                  <ProductList products={products} col={2.4}/>
                 </>
               )}
           </Container>
