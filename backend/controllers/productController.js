@@ -41,14 +41,16 @@ exports.newProduct = catchAsyncErrors(async (req, res, next) => {
 exports.getProducts = catchAsyncErrors(async (req, res, next) => {
   let objectQuery={}
   let productsCount;
+  if(req.query?.keyword) {
+    objectQuery.name = {$regex:req.query.keyword,$options: 'i'}
+  }
   if(req.query?.price){
-    objectQuery={name:{$regex:req.query.keyword,$options: 'i'},
+    objectQuery={...objectQuery,
       $and: [
-        {price:{$lte:Number(req.query.price.lte)}},
-       { price:{$gte:Number(req.query.price.gte)}}
+        {price:{$lte:(req.query.price.lte)}},
+        {price:{$gte:(req.query.price.gte)}}
        // So sánh nhỏ hơn hoặc bằng maxPrice
       ],
-     
     }
 
   }
@@ -69,9 +71,13 @@ exports.getProducts = catchAsyncErrors(async (req, res, next) => {
   const currentPage = Number(req.query?.page) || 1;
   const skip = resPerPage * (currentPage - 1);
   let products = await Product.find(objectQuery).limit(resPerPage).skip(skip)
+<<<<<<< HEAD
   console.log(req.query.category )
+=======
+>>>>>>> be06f011efdd7b6b182383cfbb134b73d90b5fdc
   let filteredProductsCount = products.length;
-  // console.log(productsCount, products.length)
+  console.log(objectQuery)
+  if(filteredProductsCount == 0) productsCount = 0
   res.status(200).json({
     success: true,
     productsCount,

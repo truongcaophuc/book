@@ -19,12 +19,11 @@ const Footer = () => {
             <Grid item md={3}>
               <div className="single-widget">
                 <div className="footer-title">
-                  <h3>About Buy It</h3>
+                  <h3>Về chúng tôi</h3>
                 </div>
                 <div className="footerabout-content">
                   <p>
-                    Buy It Store - Pakistan's first store since 2021. We
-                    sell many Category products on our web-site.
+                    Web bán truyện tranh
                     </p>
                 </div>
                 <div className="footer-address">
@@ -36,21 +35,6 @@ const Footer = () => {
                           <br />
                           <Link to="/">+1234 5678 9123</Link>
                         </span>
-                    </li>
-                    <li>
-                      <EmailIcon/>
-                        <span>
-                          <Link to="/">Student@uol.com</Link>
-                          <br />
-                          <Link to="/">info@buyit.com</Link>
-                        </span>
-                    </li>
-                    <li>
-                        <LocationOnIcon/>
-                        <span>
-                        Gulburg <br />
-                        Islamabad{" "}
-                      </span>
                     </li>
                   </ul>
                 </div>
@@ -101,31 +85,6 @@ const Footer = () => {
                       <div className="footer-title">
                         <h3>Company</h3>
                       </div>
-                      <div className="footer-link">
-                        <ul>
-                          <li>
-                            <Link to="/">Privacy Policy</Link>
-                          </li>
-                          <li>
-                            <Link to="/">Returns</Link>
-                          </li>
-                          <li>
-                            <Link to="/">Terms & Conditions</Link>
-                          </li>
-                          <li>
-                            <Link to="/">Our Support</Link>
-                          </li>
-                          <li>
-                            <Link to="/">Terms & Service</Link>
-                          </li>
-                          <li>
-                            <Link to="/">Checkout</Link>
-                          </li>
-                          <li>
-                            <Link to="/">Other Issues</Link>
-                          </li>
-                        </ul>
-                      </div>
                   </div>
             </Grid>
           </Grid>
@@ -133,8 +92,8 @@ const Footer = () => {
             <div className="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 text-lg-start text-center">
               <div className="copy-right-area">
                 <p className="copy-text">
-                  Copyright 2022 Buy it | Design By
-                  <Link to="/">UOl Students</Link>
+                  Copyright 2024
+                  <Link to="/">Bán sách</Link>
                 </p>
               </div>
             </div>
