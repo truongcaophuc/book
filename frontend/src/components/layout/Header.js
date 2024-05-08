@@ -74,7 +74,6 @@ function Header() {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
   const { category } = useSelector((state) => state.category);
   const { cartItems } = useSelector((state) => state.cart);
-
   const logoutHandler = () => {
 	  dispatch(logout());
 	  googleLogout();
@@ -196,7 +195,7 @@ function Header() {
 					<Box sx ={{flexGrow: 0}}>
 						<Tooltip title="Mở cài đặt">
 							<IconButton onClick={handleOpenUserMenu} sx={{p:0}}>
-								<Avatar src='/' alt='User Avatar'></Avatar>
+								<Avatar src={user.avatar.url} alt='User Avatar'></Avatar>
 							</IconButton>
 						</Tooltip>
 						<Menu

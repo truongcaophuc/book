@@ -2658,7 +2658,7 @@ option {
   opacity: 1;
   background-color: #F0F0F0;
   left: 0;
-  transform: translateY(-40px); /* Trượt lên 40px khi hover */
+  transform: translateY(-50px); /* Trượt lên 40px khi hover */
   transition: transform 0.3s ease-in-out; /* Hiệu ứng trượt mượt mà */
 }
 
