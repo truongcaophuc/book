@@ -20,6 +20,7 @@ import { Container, FormControlLabel, FormGroup, Grid } from "@mui/material";
 import Banner2 from "./layout/Banner2"
 import Checkbox from "@mui/material/Checkbox";
 import InputSlider from "./layout/InputSlider";
+import LatestProduct from "./product/LatestProduct";
 
 const { createSliderWithTooltip } = Slider;
 const Range = createSliderWithTooltip(Slider.Range);
@@ -96,6 +97,9 @@ const Home = () => {
             // />
           )}
           {ishome && <CategorySection setCatagory={setCatagory}/>}
+
+          
+
           {ishome ? (
             <div class="col-lg-12 mt-5">
               <div class="section-head-style-one">

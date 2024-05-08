@@ -17,6 +17,7 @@ import { Badge, MailIcon, Stack } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Search from './Search';
 import InputSearch from './InputSearch'
+import Swal from 'sweetalert2'
 
 import React, { Fragment, useEffect } from "react";
 import { Route, Link } from "react-router-dom";
@@ -65,7 +66,6 @@ function Header() {
 	setAnchorElCat(null);
   }
 
-  const alert = useAlert();
   const dispatch = useDispatch();
   useEffect(() => {
 	  dispatch(getCategory());
@@ -77,7 +77,11 @@ function Header() {
   const logoutHandler = () => {
 	  dispatch(logout());
 	  googleLogout();
-	  alert.success("Logged out successfully.");
+	  Swal.fire({
+		title: "Thành công",
+		text: "Đăng xuất thành công",
+		icon: "success"
+	  });
   };
 
 

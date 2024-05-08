@@ -8,13 +8,13 @@ import { Box, Card, CardContent, CardMedia, Container, Grid, Typography } from "
 const CategorySection = ({setCatagory}) => {
   const { category } = useSelector((state) => state.category);
   return (
-    <div class="category-area-start category-style-one mt-100 position-relative">
+    <div class="category-area-start category-style-one mt-10 position-relative">
       <div style={{ width: "80%", marginLeft: "auto", marginRight: "auto" }}>
         <div class="row">
           <div class="col-lg-12">
             <div class="section-head-style-one">
-              <h2>What do you looking for ?</h2>
-              <p>We have variety of catagories available</p>
+              <h2>Bạn đang tìm kiếm gì ?</h2>
+              <p>Chúng tôi có sẳn tất cả các danh mục</p>
             </div>
           </div>
         </div>

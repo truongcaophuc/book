@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 body{
-    background-color: #F0F0F0;
+    background-color: #F8F8F8;
+    font-family: "Quicksand", sans-serif;
 }
 
 label {
