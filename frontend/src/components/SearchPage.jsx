@@ -80,7 +80,7 @@ const SearchPage = () => {
   return (
     <Container>
         <Fragment>
-                  <Grid container>
+                  <Grid container mt={100}>
                     <Grid item md={3} my={3}>
                     <div className="px-5">
                     <InputSlider price={price} setPrice={setPrice}/>
