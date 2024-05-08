@@ -1,7 +1,6 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
 import {
@@ -33,10 +32,6 @@ import {
 	categoryReducer,
 	dltCategoryReducer,
 } from "./reducers/categoryReducer";
-const persistConfig = {
-	key: 'root',
-	storage,
-  }
 const reducer = combineReducers({
 	products: productsReducer,
 	productDetails: productDetailsReducer,
@@ -60,7 +55,6 @@ const reducer = combineReducers({
 	category: categoryReducer,
 	dltCategory: dltCategoryReducer,
 });
-const persistedReducer = persistReducer(persistConfig, reducer)
 let initialState = {
 	cart: {
 		cartItems: localStorage.getItem("cartItems")
@@ -78,6 +72,5 @@ export const store = createStore(
 	initialState,
 	composeWithDevTools(applyMiddleware(...middlware))
 );
-export const persistor = persistStore(store);
 
 
