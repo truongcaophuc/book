@@ -1,13 +1,31 @@
 import React from 'react';
+import { useState,useEffect } from 'react';
 import { Box, Card, CardContent, CardMedia, Rating, Stack, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { AddShoppingCart } from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import {useParams}  from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux";
+import { addItemToCart } from "../../actions/cartActions";
+import {
+  getProducts,
+  getProductDetails,
+  newReview,
+  clearErrors,
+} from "../../actions/productActions";
 
 const Product = ({ product }) => {
   const [value, setValue] = React.useState(2);
+  const [quantity, setQuantity] = useState(1);
+  const dispatch = useDispatch();
+  
 
+
+  const addToCart = (id) => {
+    console.log("id",id)
+    dispatch(addItemToCart(id, quantity));
+  };
 
   return (
     <Card 
@@ -112,7 +130,10 @@ const Product = ({ product }) => {
           className='stack-button'
           
         >
-          <IconButton color="primary" aria-label="add to wishlist cart">
+          <IconButton color="primary" aria-label="add to wishlist cart"
+            
+            onClick={() => addToCart(product._id)}
+          >
             <FavoriteBorderIcon />
           </IconButton>
 
