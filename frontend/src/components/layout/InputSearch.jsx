@@ -11,7 +11,7 @@ function Search({ search }) {
       e.preventDefault();
   
       if (keyword.trim()) {
-        navigate(`/search/${keyword}`);
+        navigate(`/search?keyword=${keyword}`);
       } else {
         navigate("/");
       }

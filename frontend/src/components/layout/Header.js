@@ -72,6 +72,7 @@ function Header() {
   }, [dispatch]);
 
   const { isAuthenticated, user } = useSelector((state) => state.auth);
+  console.log(user?.avatar?.url)
   const { category } = useSelector((state) => state.category);
   const { cartItems } = useSelector((state) => state.cart);
   const logoutHandler = () => {

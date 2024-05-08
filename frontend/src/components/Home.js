@@ -46,30 +46,18 @@ const Home = () => {
     filteredProductsCount,
   } = useSelector((state) => state.products);
 
-  const params = useParams();
-
-  const keyword = params.keyword;
   useEffect(() => {
     if (error) {
       return alert.error(error);
     }
-    dispatch(getProducts(keyword, currentPage, price, catagory, rating));
-  }, [dispatch, alert, error, keyword, currentPage, price, catagory, rating,params]);
-  useEffect(() => {
-    if (error) {
-      return alert.error(error);
-    }
-    dispatch(getProducts(keyword, currentPage, price, catagory, rating));
-  }, [dispatch, alert, error, keyword, currentPage, price, catagory, rating]);
-
+    const params = new URLSearchParams(`?page=${currentPage}`);
+    dispatch(getProducts(params));
+  }, [dispatch, alert, error, currentPage]);
   function setCurrentPageNo(pageNumber) {
     setCurrentPage(pageNumber);
   }
 
   let count = productsCount;
-  if (keyword) {
-    count = filteredProductsCount;
-  }
   let ishome = false;
   if (location.pathname === "/") {
     ishome = true;
@@ -79,7 +67,7 @@ const Home = () => {
     setCatagory(catName);
   };
 
-  console.log(products);
+  // console.log(products);
   return (
     <Fragment>
       {loading ? (
@@ -125,110 +113,7 @@ const Home = () => {
           )}
 
         <Container>
-            {keyword ? (
-                <Fragment>
-                  <Grid container>
-                    <Grid item md={3} my={3}>
-                    <div className="px-5">
-                    <InputSlider price={price} setPrice={setPrice}/>
-                      {/* <Range
-                        marks={{
-                          1: `$1`,
-                          1000000: `${maxPrice}`,
-                        }} 
-                        min={1}
-                        max={maxPrice}
-                        defaultValue={[1, maxPrice]}
-                        tipFormatter={(value) => `$${value}`}
-                        tipProps={{
-                          placement: "top",
-                          visible: true,
-                        }}
-                        value={price}
-                        onChange={(price) => setPrice(price)}
-                      /> */}
-
-                      <hr className="my-5" />
-
-                      <div className="mt-5">
-                        <h4 className="mb-3" 
-                          style={{color:"#1976d2", fontSize:"22px", fontWeight:"700"}}
-                        >
-                           Danh mục
-                        </h4>
-                        
-                        <FormGroup>
-                          {category.map((cat) => (
-                            <FormControlLabel
-                              sx={{color:"#0F0F0F"}}
-                              key={cat._id}
-                              control={
-                                <Checkbox
-                                  onChange={() => setCatagory(cat.name)}
-                                  checked={catagory == cat.name}
-                                />
-                              }
-                              label={cat.name}
-                            />
-                          ))}
-                        </FormGroup>
-
-                        {/* <ul className="pl-0">
-                          {category.map((category) => (
-                            <li
-                              style={{
-                                cursor: "pointer",
-                                listStyleType: "none",
-                              }}
-                              key={category._id}
-                              onClick={() => setCatagory(category.name)}
-                            >
-                              {category.name}
-                            </li>
-                          ))}
-                        </ul> */}
-                      </div>
-
-                      <hr className="my-3" />
-
-                      <div className="mt-5">
-                        <h4 className="mb-3">Ratings</h4>
-
-                        <ul className="pl-0">
-                          {[5, 4, 3, 2, 1].map((star) => (
-                            <li
-                              style={{
-                                cursor: "pointer",
-                                listStyleType: "none",
-                              }}
-                              key={star}
-                              onClick={() => setRating(star)}
-                            >
-                              <div className="rating-outer">
-                                <div
-                                  className="rating-inner"
-                                  style={{
-                                    width: `${star * 20}%`,
-                                  }}
-                                ></div>
-                              </div>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  
-                    </Grid>
-                    <Grid item md={9}>
-                      <ProductList products={products} col={3}/>     
-                    </Grid>
-                  </Grid>
-                </Fragment>
-              ) : (
-                <>
-                  <ProductList products={products} col={2.4}/>
-                </>
-              )}
+            <ProductList products={products} col={2.4}/>
           </Container>
 
           {resPerPage <= count && (

@@ -32,7 +32,7 @@ const CategorySection = ({setCatagory}) => {
                        transition: "transform 0.3s, box-shadow .3s", "&:hover": { transform: "scale(1.05)", boxShadow:" 0 0 20px rgba(33,33,33,.2)" } }}
                   onClick={() => { setCatagory(category.name) }}
                 >
-                  <Link to={`/search/all?category=${category.name}`}>
+                  <Link to={`/search?category[]=${category.name}`}>
                     <Box
                       sx={{ height: 100,width:100 , margin:"20px auto 0", p:"10px", overflow:"hidden" }}
                     >
@@ -47,7 +47,7 @@ const CategorySection = ({setCatagory}) => {
                     fontSize={15}
                     variant="body2" onClick={
                   ()=>{ setCatagory(category.name)}}>
-                    <Link to={`/search/all?category=${category.name}`}>{category.name}</Link> 
+                    <Link to={`/search?category[]=${category.name}`}>{category.name}</Link> 
                   </Typography>
                 </CardContent>
   

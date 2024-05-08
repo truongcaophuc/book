@@ -6319,7 +6319,7 @@ textarea {
 .forget-password::before {
   content: "";
   position: absolute;
-  bottom: 16px;
+  bottom: 0px;
   left: 0;
   width: 100%;
   background: #00152b;
