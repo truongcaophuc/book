@@ -25,7 +25,7 @@ const Range = createSliderWithTooltip(Slider.Range);
 const maxPrice = 1000000;
 const SearchPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [currentPage, setCurrentPage] = useState(searchParams.get('page') || 1);
+  const [currentPage, setCurrentPage] = useState(Number.parseInt(searchParams.get('page') || '1'));
   const defaultPriceRange = [Number.parseInt(searchParams.get('price[gte]')||'0'), 
                             Number.parseInt(searchParams.get('price[lte]')||'1000000')]
   const [price, setPrice] = useState(defaultPriceRange);

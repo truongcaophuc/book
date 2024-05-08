@@ -70,9 +70,12 @@ exports.getProducts = catchAsyncErrors(async (req, res, next) => {
     : await Product.countDocuments();
   const currentPage = Number(req.query?.page) || 1;
   const skip = resPerPage * (currentPage - 1);
-  let products = await Product.find(objectQuery).limit(resPerPage).skip(skip)
+  let sort = {};
+  if(req.query.sortByPrice) {
+    sort.price = req.query.sortByPrice
+  }
+  let products = await Product.find(objectQuery).sort(sort).limit(resPerPage).skip(skip)
   let filteredProductsCount = products.length;
-  console.log(objectQuery)
   if(filteredProductsCount == 0) productsCount = 0
   res.status(200).json({
     success: true,
