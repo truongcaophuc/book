@@ -40,6 +40,7 @@ exports.newProduct = catchAsyncErrors(async (req, res, next) => {
 // Get all products   =>   /api/v1/products?keyword=apple
 exports.getProducts = catchAsyncErrors(async (req, res, next) => {
   let objectQuery={}
+  let productsCount;
   if(req.query?.price){
     objectQuery={name:{$regex:req.query.keyword,$options: 'i'},
       $and: [
@@ -58,16 +59,19 @@ exports.getProducts = catchAsyncErrors(async (req, res, next) => {
   }
   if(req.query?.category){
     objectQuery={...objectQuery,
-    category:req.query.category
+    category: {$in: req.query.category}
     }
   }
-  let resPerPage=12
-  const productsCount = await Product.countDocuments();
+  let resPerPage=10
+  productsCount = req.query.category 
+    ? await Product.countDocuments({category: {$in: req.query.category}}) 
+    : await Product.countDocuments();
   const currentPage = Number(req.query?.page) || 1;
-        const skip = resPerPage * (currentPage - 1);
-  
+  const skip = resPerPage * (currentPage - 1);
   let products = await Product.find(objectQuery).limit(resPerPage).skip(skip)
+  // console.log(req.query.category )
   let filteredProductsCount = products.length;
+  // console.log(productsCount, products.length)
   res.status(200).json({
     success: true,
     productsCount,
