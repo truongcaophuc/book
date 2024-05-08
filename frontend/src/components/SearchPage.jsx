@@ -18,14 +18,15 @@ import { useSearchParams } from "react-router-dom";
 import { Container, FormControlLabel, FormGroup, Grid } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 import InputSlider from "./layout/InputSlider";
+import {Input} from "@mui/material";
 
 const { createSliderWithTooltip } = Slider;
 const Range = createSliderWithTooltip(Slider.Range);
 const maxPrice = 1000000;
-const defaultPriceRange = [0, maxPrice]
 const SearchPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [currentPage, setCurrentPage] = useState(searchParams.get('page') || 1);
+  const defaultPriceRange = [searchParams.get('price[gte]'), searchParams.get('price[lte]')]
   const [price, setPrice] = useState(defaultPriceRange);
   const [catagory, setCatagory] = useState(searchParams.getAll('category[]'));
   const [rating, setRating] = useState(0);
@@ -65,6 +66,18 @@ const SearchPage = () => {
     })
     setCatagory(searchParams.getAll('category[]'));
   }
+  function setCurrentPrice(e, idx) {
+    setPrice((prev) => {
+      prev[idx] = Number.parseInt(e.target.value)
+      console.log(prev)
+      return prev;
+    })
+    setSearchParams((prev) => {
+      prev.set('price[gte]', price[0]);
+      prev.set('price[lte]', price[1]);
+      return prev;
+    })
+  }
   let count = filteredProductsCount;
   console.log(productsCount, count)
   return (
@@ -73,8 +86,14 @@ const SearchPage = () => {
         <Grid container mt={10}>
           <Grid item md={3} my={3}>
             <div className="px-5">
-              <InputSlider price={price} setPrice={setPrice} />
-
+              <span>Giá tối thiểu</span>
+              <Input type='text' id='minPrice' defaultValue={price[0]} onChange={(e) => {
+                setCurrentPrice(e, 0)
+              }}/>
+              <span>Giá tối đa</span>
+              <Input type='text' id='maxPrice' defaultValue={price[1]} onChange={(e) => {
+                setCurrentPrice(e, 1)
+              }} />
               <hr className="my-5" />
 
               <div className="mt-5">
