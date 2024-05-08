@@ -15,6 +15,8 @@ import CollectionsBookmarkIcon from '@mui/icons-material/CollectionsBookmark';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { Badge, MailIcon, Stack } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Search from './Search';
+import InputSearch from './InputSearch'
 
 import React, { Fragment, useEffect } from "react";
 import { Route, Link } from "react-router-dom";
@@ -159,18 +161,25 @@ function Header() {
 					LOGO
 				</Typography>
 				
-				<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+				<Box sx={{ flexGrow: 5, display: { xs: 'none', md: 'flex' } }}>
 					{pages.map((page) => (
 						<Button 
 							key={page}
 							onClick={handleCloseNavMenu}
 							sx={{ my:2, color:'white', display:'block' }}
 						>
-							{page.name}		
+								<Link to={page.des}>
+										<Typography textAlign="center">{page.name}</Typography>
+									
+								</Link>	
 						</Button>
 					))}
 				</Box>
-				
+
+				<Box sx={{ flexGrow: 6, display: { xs: 'none', md: 'flex' } }}>
+    <InputSearch/>
+</Box>
+
 				{ user && isAuthenticated ? (
 					<>
 					<Box sx ={{flexGrow: 0, mr:2, position:'relative'}}>

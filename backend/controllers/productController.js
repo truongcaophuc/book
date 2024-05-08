@@ -30,26 +30,20 @@ exports.newProduct = catchAsyncErrors(async (req, res, next) => {
   req.body.images = imagesLinks;
   req.body.user = req.user.id;
 
-  // console.log(req.body);
-  try {
-    const product = await Product.create({...req.body});
-    res.status(201).json({
-      success: true,
-      product,
-    });
-    
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      success: false,
-      message: error
-    });
-  }
+  const product = await Product.create(req.body);
+  res.status(201).json({
+    success: true,
+    product,
+  });
 });
 
 // Get all products   =>   /api/v1/products?keyword=apple
 exports.getProducts = catchAsyncErrors(async (req, res, next) => {
   let objectQuery={}
+<<<<<<< HEAD
+=======
+  console.log(req.query)
+>>>>>>> 19f6cbf1b86e3de7e87c249dd43681ce14e9a86c
   if(req.query?.price){
 
     objectQuery={name:{$regex:req.query.keyword,$options: 'i'},
@@ -76,7 +70,11 @@ exports.getProducts = catchAsyncErrors(async (req, res, next) => {
   const productsCount = await Product.countDocuments();
   const currentPage = Number(req.query?.page) || 1;
         const skip = resPerPage * (currentPage - 1);
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 19f6cbf1b86e3de7e87c249dd43681ce14e9a86c
   let products = await Product.find(objectQuery).limit(resPerPage).skip(skip)
   let filteredProductsCount = products.length;
   res.status(200).json({

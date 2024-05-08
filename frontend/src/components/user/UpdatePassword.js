@@ -6,9 +6,9 @@ import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { updatePassword, clearErrors } from '../../actions/userActions'
 import { UPDATE_PASSWORD_RESET } from '../../constants/userConstants'
-
-const UpdatePassword = ({ history }) => {
-
+import {useNavigate} from 'react-router-dom'
+const UpdatePassword = () => {
+    const navigate = useNavigate();
     const [oldPassword, setOldPassword] = useState('')
     const [password, setPassword] = useState('')
 
@@ -27,14 +27,14 @@ const UpdatePassword = ({ history }) => {
         if (isUpdated) {
             alert.success('Password updated successfully')
 
-            history.push('/me')
+            navigate('/me')
 
             dispatch({
                 type: UPDATE_PASSWORD_RESET
             })
         }
 
-    }, [dispatch, alert, error, history, isUpdated])
+    }, [dispatch, alert, error, navigate, isUpdated])
 
     const submitHandler = (e) => {
         e.preventDefault();

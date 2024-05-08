@@ -27,7 +27,7 @@ const Dashboard = () => {
 			outOfStock += 1;
 		}
 	})
-    console.log("component re render")
+
 	useEffect(() => {
 		dispatch(getAdminProducts())
 		dispatch(allOrders())
@@ -36,7 +36,7 @@ const Dashboard = () => {
 
 	return (
 		<Fragment>
-			<div className="row mt-5">
+			<div className="row mt-5 ng-white" >
 				<div className="col-12 col-md-2 mt-4">
 					<Sidebar />
 				</div>

@@ -27,7 +27,7 @@ const Product = ({ product }) => {
             sx={{ padding: "16px", height: '174px' }}
             component="img"
             width="100%"
-            image="https://cdn0.fahasa.com/media/catalog/product/8/9/8935246938126_1.jpg"
+            image={product.images[0].url}
             alt="Product"
           />
         </Link >
@@ -40,22 +40,41 @@ const Product = ({ product }) => {
           </Typography>
         </Link>
 
-        <Stack direction="row" className='product-special-price'>
-          <Typography className='price' variant="h6" mr={3} fontSize={4}>
-            {product.salePrice}
-          </Typography>
+        { product.salePrice ? (
+          <Stack direction="row" className='product-special-price'>
+            <Typography className='price' variant="h6" mr={3} fontSize={4}>
+              {product.salePrice}đ
+            </Typography>
 
-          <Typography className='discount-percent' variant='h6' fontSize={14}>
-            {(product.salePrice/product.price)}
-          </Typography>
-        </Stack>
+            <Typography 
+              top={10}
+              right={10}
+              position="absolute" 
+              className='discount-percent' 
+              variant='h6' fontSize={14}>
+              {product.salePrice ? <> {Math.round((product.salePrice/product.price)*100)}%</> : <> 0%</>}
+            </Typography>
+            
+            <Typography className='product-old-price' variant="body2">
+            {product.price} đ
+            </Typography>
+          </Stack>
+         ) : (
+          
+            <Typography className='price' variant="h6" mr={3} fontSize={4}>
+              {product.price} đ
+            </Typography>
+        
+         )
+        }
 
-        <Typography className='product-old-price' variant="body2">
-          {product.price}
-        </Typography>
+        
+
+        
 
         <Stack direction="row" className='ratting-sold'>
-          {product.ratings && product.ratings > 0 && (
+          {(product.ratings && product.ratings) > 0 ? (
+            <>
             <Rating
               className='rating-custom'
               size="small"
@@ -65,16 +84,25 @@ const Product = ({ product }) => {
                 setValue(newValue);
               }}
             />
-          )}
-
-          <Box component="div" className='sold-container'>
-            <Typography component="div" className='sold-qty-num' fontSize="12px">
-              <Typography component="span" fontSize="13px" mr={0.5}>
-                | Đã bán
+            <Box component="div" className='sold-container'>
+              <Typography component="div" className='sold-qty-num' fontSize="12px">
+                <Typography component="span" fontSize="13px" mr={0.5}>
+                  | Đã bán
+                </Typography>
+                {product.soldQty}
               </Typography>
-              {product.soldQty}
-            </Typography>
-          </Box>
+            </Box>
+          </>
+          ) : (
+            <Box component="div" className='sold-container'>
+              <Typography component="div" className='sold-qty-num' fontSize="12px">
+                <Typography component="span" fontSize="13px" mr={0.5}>
+                  | Đã bán 0
+                </Typography>
+                {product.soldQty}
+              </Typography>
+            </Box>
+          )}
         </Stack>
 
         {/* StackButton sử dụng position absolute */}
