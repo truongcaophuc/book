@@ -46,6 +46,7 @@ const Home = () => {
   } = useSelector((state) => state.products);
 
   const params = useParams();
+ 
 
   const keyword = params.keyword;
   useEffect(() => {
