@@ -2,7 +2,9 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import "../../App1.css";
-import { Card, Container, Grid } from "@mui/material";
+import { Box, Card, CardContent, CardMedia, Container, Grid, Typography } from "@mui/material";
+
+
 const CategorySection = ({setCatagory}) => {
   const { category } = useSelector((state) => state.category);
   return (
@@ -17,27 +19,40 @@ const CategorySection = ({setCatagory}) => {
           </div>
         </div>
         <Container>
-          <Grid container spacing={3}>
-          {category.map((category, idx) => {
+          <Grid container spacing={2}>
+               {category.map((category, idx) => {
             return (
-              <Grid item md={2}>
-                <Card>
-                <div class="category-icon"onClick={
-                  ()=>{ setCatagory(category.name)}
-                 }>
+              <Grid item md={2} margin="0 auto">
+                <Card 
+                  className="category_card"
+                  sx={{
+                       width: "180px", 
+                       height: "180px", 
+                       margin: "0 auto",
+                       transition: "transform 0.3s, box-shadow .3s", "&:hover": { transform: "scale(1.05)", boxShadow:" 0 0 20px rgba(33,33,33,.2)" } }}
+                  onClick={() => { setCatagory(category.name) }}
+                >
                   <Link to={`/search/all?category=${category.name}`}>
-                    <img src={category.images[0].url} />
+                    <Box
+                      sx={{ height: 100,width:100 , margin:"20px auto 0", p:"10px", overflow:"hidden" }}
+                    >
+                      <img src={category.images[0].url}></img>
+                    </Box>
                   </Link>
-                </div>
-                <h5 class="category-title"onClick={
+                  
+                <CardContent sx={{textAlign:"center"}}>
+                  <Typography
+                    className="category-name_text"
+                    fontWeight={700} 
+                    fontSize={15}
+                    variant="body2" onClick={
                   ()=>{ setCatagory(category.name)}}>
-                  <Link to={`/search/all?category=${category.name}`}>{category.name}</Link>
-                </h5>
+                    <Link to={`/search/all?category=${category.name}`}>{category.name}</Link> 
+                  </Typography>
+                </CardContent>
+  
                 </Card>
-                
-              
               </Grid>
-              
             );
           })}
           </Grid>

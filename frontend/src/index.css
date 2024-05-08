@@ -63,3 +63,18 @@ label {
 .label-search{
     color: #0F0F0F;
 }
+
+.category-name_text{
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1976D2;
+}
+
+.category_card:hover{
+    transform: scale(1.1);
+}

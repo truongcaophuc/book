@@ -41,7 +41,6 @@ exports.newProduct = catchAsyncErrors(async (req, res, next) => {
 exports.getProducts = catchAsyncErrors(async (req, res, next) => {
   let objectQuery={}
   if(req.query?.price){
-
     objectQuery={name:{$regex:req.query.keyword,$options: 'i'},
       $and: [
         {price:{$lte:Number(req.query.price.lte)}},
