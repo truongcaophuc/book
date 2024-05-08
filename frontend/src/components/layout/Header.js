@@ -180,7 +180,7 @@ function Header() {
     <InputSearch/>
 </Box>
 
-				{ user && isAuthenticated ? (
+				{ (user && isAuthenticated) ? (
 					<>
 					<Box sx ={{flexGrow: 0, mr:2, position:'relative'}}>
 

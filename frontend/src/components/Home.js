@@ -26,11 +26,7 @@ const Range = createSliderWithTooltip(Slider.Range);
 const maxPrice = 1000000;
 const Home = () => {
   const [currentPage, setCurrentPage] = useState(1);
-<<<<<<< HEAD
-  const [price, setPrice] = useState([1, 10000000]);
-=======
   const [price, setPrice] = useState([0, maxPrice]);
->>>>>>> 19f6cbf1b86e3de7e87c249dd43681ce14e9a86c
   const [catagory, setCatagory] = useState("");
   const [rating, setRating] = useState(0);
   const location = useLocation();
