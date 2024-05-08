@@ -22,7 +22,7 @@ import InputSlider from "./layout/InputSlider";
 const { createSliderWithTooltip } = Slider;
 const Range = createSliderWithTooltip(Slider.Range);
 const maxPrice = 1000000;
-
+const defaultPriceRange = [0, maxPrice]
 const SearchPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [currentPage, setCurrentPage] = useState(1);
@@ -61,7 +61,7 @@ const SearchPage = () => {
         prev.append('category[]', category.name);
       else
         prev.delete('category[]', category.name);
-      return prev;
+      return prev; 
     })
     setCatagory(searchParams.getAll('category[]'));
   }

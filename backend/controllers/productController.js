@@ -69,7 +69,7 @@ exports.getProducts = catchAsyncErrors(async (req, res, next) => {
   const currentPage = Number(req.query?.page) || 1;
   const skip = resPerPage * (currentPage - 1);
   let products = await Product.find(objectQuery).limit(resPerPage).skip(skip)
-  // console.log(req.query.category )
+  console.log(req.query.category )
   let filteredProductsCount = products.length;
   // console.log(productsCount, products.length)
   res.status(200).json({
