@@ -27,7 +27,6 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
             url: result.secure_url
         }
     })
-    console.log(user)
     sendToken(user, 200, res)
 
 })
@@ -54,7 +53,26 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
     }
     sendToken(user, 200, res)
 })
-
+exports.loginWithGoogle=catchAsyncErrors(async (req, res, next) => {
+    const { email, picture,name } = req.body;
+    const account=await User.find({email})
+    if(account.length==0){
+        try{
+        const user = await User.create({
+            name,
+            email,
+            avatar: {
+                url: picture
+            }
+        })
+        sendToken(user, 200, res)
+    }
+        catch(err){console.log(err)}
+       
+    }
+    else sendToken(account[0], 200, res)
+   
+})
 // Forgot Password   =>  /api/v1/password/forgot
 exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
 

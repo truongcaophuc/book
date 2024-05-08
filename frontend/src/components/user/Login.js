@@ -6,7 +6,8 @@ import MetaData from "../layout/MetaData";
 
 import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
-import { login, clearErrors } from "../../actions/userActions";
+import { login,loginWithGoogle, clearErrors } from "../../actions/userActions";
+import {  useGoogleLogin } from "@react-oauth/google";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -15,7 +16,27 @@ const Login = () => {
   const alert = useAlert();
   const dispatch = useDispatch();
   const history = useNavigate();
-
+  const loginSuccess = async ({ access_token }) => {
+    const response = await fetch(
+      `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${access_token}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+          Accept: "application/json",
+        },
+      }
+    );
+    const data = await response.json();
+    dispatch(loginWithGoogle(data));
+  };
+  const loginFailure = (response) => {
+    console.log("Login failure", response);
+  };
+  const loginGoogle = useGoogleLogin({
+    onSuccess: loginSuccess,
+    onError: loginFailure,
+  });
   const { isAuthenticated, error, loading } = useSelector(
     (state) => state.auth
   );
@@ -81,6 +102,7 @@ const Login = () => {
                   </Link>
                 </div>
               </div>
+            
               <div className="col-12">
                 <div className="form-inner">
                   <button
@@ -94,6 +116,22 @@ const Login = () => {
                   </button>
                 </div>
               </div>
+              <div className="w-[100%] text-center">Hoặc</div>
+              <div className="flex justify-center w-[100%]">
+
+              <button
+          className="hover:opacity-[0.9] flex justify-center bg-[#3f81f9] text-white py-[20px] mt-[25px] rounded p-[10px]"
+          onClick={() => {
+            loginGoogle();
+          }}
+        >
+          <img
+            src="images/google.png"
+            className="w-[30px] h-[30px] bg-white rounded p-[5px] mr-[15px]"
+            />
+          ĐĂNG NHẬP BẰNG GOOGLE
+        </button>
+            </div>
             </div>
           </form>
         </Fragment>

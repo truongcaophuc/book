@@ -22,7 +22,7 @@ import { Route, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
 import { logout } from "../../actions/userActions";
-
+import { googleLogout } from '@react-oauth/google';
 import "../../App.css";
 import { getCategory } from "../../actions/categoryActions";
 import Login from '@mui/icons-material/Login';
@@ -75,6 +75,7 @@ function Header() {
 
   const logoutHandler = () => {
 	  dispatch(logout());
+	  googleLogout();
 	  alert.success("Logged out successfully.");
   };
 
