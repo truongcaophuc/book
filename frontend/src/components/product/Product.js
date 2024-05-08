@@ -74,13 +74,13 @@ const Product = ({ product }) => {
             </Typography>
             
             <Typography className='product-old-price' variant="body2">
-            {product.price} đ
+            {Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price)}
             </Typography>
           </Stack>
          ) : (
           
             <Typography className='price' variant="h6" mr={3} fontSize={4}>
-              {product.price} đ
+              {Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price)}
             </Typography>
         
          )
