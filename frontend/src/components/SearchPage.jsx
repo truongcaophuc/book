@@ -26,7 +26,8 @@ const maxPrice = 1000000;
 const SearchPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [currentPage, setCurrentPage] = useState(searchParams.get('page') || 1);
-  const defaultPriceRange = [searchParams.get('price[gte]'), searchParams.get('price[lte]')]
+  const defaultPriceRange = [Number.parseInt(searchParams.get('price[gte]')||'0'), 
+                            Number.parseInt(searchParams.get('price[lte]')||'1000000')]
   const [price, setPrice] = useState(defaultPriceRange);
   const [catagory, setCatagory] = useState(searchParams.getAll('category[]'));
   const [rating, setRating] = useState(Number.parseInt(searchParams.get('ratings[gte]') || '0'));
@@ -79,7 +80,6 @@ const SearchPage = () => {
     })
   }
   let count = filteredProductsCount;
-  console.log(productsCount, count)
   return (
     <Container>
       <Fragment>
