@@ -104,14 +104,13 @@ const Login = () => {
               </div>
             
               <div className="col-12">
-                <div className="form-inner">
+                <div className="form-inner flex justify-center">
                   <button
-                    className="primary--btn login-btn"
+                    className="px-[20px] py-[10px] text-[white] hover:text-[#1976D2] bg-[#1976D2] border-[1px] border-[#1976D2]  hover:bg-[white]"
                     type="submit"
-                    style={{ border: "none", background: "#1976D2" }}
                   >
                 
-                     Đăng nhập tài khoản
+                     Đăng nhập 
                    
                   </button>
                 </div>
@@ -120,7 +119,7 @@ const Login = () => {
               <div className="flex justify-center w-[100%]">
 
               <button
-          className="hover:opacity-[0.9] flex justify-center bg-[#3f81f9] text-white py-[20px] mt-[25px] rounded p-[10px]"
+          className="hover:opacity-[0.9] flex justify-center bg-[#3f81f9] text-white py-[10px] mt-[25px] rounded px-[10px]"
           onClick={() => {
             loginGoogle();
           }}
@@ -129,7 +128,7 @@ const Login = () => {
             src="images/google.png"
             className="w-[30px] h-[30px] bg-white rounded p-[5px] mr-[15px]"
             />
-          ĐĂNG NHẬP BẰNG GOOGLE
+          Đăng nhập với google
         </button>
             </div>
             </div>
