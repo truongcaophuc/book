@@ -14,7 +14,7 @@ import { useAlert } from "react-alert";
 import { getProducts } from "../actions/productActions";
 import { getCategory } from "../actions/categoryActions";
 
-import { useLocation, useParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { Container, FormControlLabel, FormGroup, Grid } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 import InputSlider from "./layout/InputSlider";
@@ -24,13 +24,11 @@ const Range = createSliderWithTooltip(Slider.Range);
 const maxPrice = 1000000;
 
 const SearchPage = () => {
-
-    const [currentPage, setCurrentPage] = useState(1);
-  const [price, setPrice] = useState([0, maxPrice]);
-  const [catagory, setCatagory] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [price, setPrice] = useState(defaultPriceRange);
+  const [catagory, setCatagory] = useState(searchParams.getAll('category[]'));
   const [rating, setRating] = useState(0);
-  const location = useLocation();
-
   const { category } = useSelector((state) => state.category);
 
   const alert = useAlert();
@@ -44,39 +42,30 @@ const SearchPage = () => {
     resPerPage,
     filteredProductsCount,
   } = useSelector((state) => state.products);
-
-  const params = useParams();
-
-  const keyword = params.keyword;
   useEffect(() => {
     if (error) {
       return alert.error(error);
     }
-    dispatch(getProducts(keyword, currentPage, price, catagory, rating));
-  }, [dispatch, alert, error, keyword, currentPage, price, catagory, rating,params]);
-  useEffect(() => {
-    if (error) {
-      return alert.error(error);
-    }
-    dispatch(getProducts(keyword, currentPage, price, catagory, rating));
-  }, [dispatch, alert, error, keyword, currentPage, price, catagory, rating]);
-
+    dispatch(getProducts(searchParams));
+  }, [dispatch, alert, error, searchParams]);
   function setCurrentPageNo(pageNumber) {
+    setSearchParams((prev) => {
+      prev.set('page', pageNumber);
+      return prev;
+    })
     setCurrentPage(pageNumber);
   }
-
-  let count = productsCount;
-  if (keyword) {
-    count = filteredProductsCount;
+  function setCurrentCategory(e, category) {
+    setSearchParams((prev) => {
+      if(e.target.checked)
+        prev.append('category[]', category.name);
+      else
+        prev.delete('category[]', category.name);
+      return prev;
+    })
+    setCatagory(searchParams.getAll('category[]'));
   }
-  let ishome = false;
-  if (location.pathname === "/") {
-    ishome = true;
-  }
-
-  const handleChange = (catName) => {
-    setCatagory(catName);
-  };
+  let count = filteredProductsCount;
   return (
     <Container>
         <Fragment>
@@ -101,8 +90,8 @@ const SearchPage = () => {
                               key={cat._id}
                               control={
                                 <Checkbox
-                                  onChange={() => setCatagory(cat.name)}
-                                  checked={catagory == cat.name}
+                                  onChange={(e) => setCurrentCategory(e, cat)}
+                                  checked={catagory.includes(cat.name)}
                                 />
                               }
                               label={cat.name}
