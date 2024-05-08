@@ -36,9 +36,6 @@ export const getProducts =
 		async (dispatch) => {
 			try {
 				dispatch({ type: ALL_PRODUCTS_REQUEST });
-				for (const p of params) {
-					params.set(p[0], p[1]);
-				}
 				const link = `http://localhost:4000/api/v1/products?${params.toString()}`
 				const { data } = await axios.get(link);
 				dispatch({
