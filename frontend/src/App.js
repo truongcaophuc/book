@@ -47,6 +47,7 @@ import axios from "axios";
 // Payment
 import UserPage from "./components/user/UserPage";
 import Contact from "./components/Contact";
+import SearchPage from "./components/SearchPage";
 
 function App() {
   useEffect(() => {
@@ -61,6 +62,8 @@ function App() {
         <Header />
       
           <Routes>
+          
+          <Route path="/test5" element={<SearchPage/>}></Route>
 
           <Route path="/" element={<Home/>}  />
           <Route path="/contact" element={<Contact/>} />

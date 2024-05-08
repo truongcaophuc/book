@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import "../../App1.css";
+import { Card, Container, Grid } from "@mui/material";
 const CategorySection = ({setCatagory}) => {
   const { category } = useSelector((state) => state.category);
   return (
@@ -15,13 +16,12 @@ const CategorySection = ({setCatagory}) => {
             </div>
           </div>
         </div>
-        <div class="row">
+        <Container>
+          <Grid container spacing={3}>
           {category.map((category, idx) => {
             return (
-              <div
-                class="col-lg-2 col-md-3 col-sm-6 category-box-alpha shadow-sm"
-                style={{ borderRadius: "20px" }}
-              >
+              <Grid item md={2}>
+                <Card>
                 <div class="category-icon"onClick={
                   ()=>{ setCatagory(category.name)}
                  }>
@@ -33,10 +33,17 @@ const CategorySection = ({setCatagory}) => {
                   ()=>{ setCatagory(category.name)}}>
                   <Link to={`/search/all?category=${category.name}`}>{category.name}</Link>
                 </h5>
-              </div>
+                </Card>
+                
+              
+              </Grid>
+              
             );
           })}
-        </div>
+          </Grid>
+         
+
+        </Container>
       </div>
     </div>
   );
