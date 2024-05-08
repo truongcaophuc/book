@@ -53,7 +53,6 @@ export const login = (email, password) => async (dispatch) => {
         const {data}= await axios.post('http://localhost:4000/api/v1/login', { email, password }, {
             withCredentials: true // Cấu hình Axios để bao gồm cookie trong yêu cầu
           },config)
-          localStorage.setItem("tokenize",data.token)
         dispatch({
             type: LOGIN_SUCCESS,
             payload: data.user
@@ -66,7 +65,30 @@ export const login = (email, password) => async (dispatch) => {
         })
     }
 }
+export const loginWithGoogle = (data) => async (dispatch) => {
+    try {
+        dispatch({ type: LOGIN_REQUEST })
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }
 
+        const dataUser= await axios.post('http://localhost:4000/api/v1/loginWithGoogle', {...data}, {
+            withCredentials: true // Cấu hình Axios để bao gồm cookie trong yêu cầu
+          },config)
+        dispatch({
+            type: LOGIN_SUCCESS,
+            payload: dataUser.data.user
+        })
+
+    } catch (error) {
+        dispatch({
+            type: LOGIN_FAIL,
+            payload: error
+        })
+    }
+}
 // Register user
 export const register = (userData) => async (dispatch) => {
     try {

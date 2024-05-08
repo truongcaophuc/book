@@ -4,6 +4,7 @@ const router = express.Router();
 const {
     registerUser,
     loginUser,
+    loginWithGoogle,
     forgotPassword,
     resetPassword,
     getUserProfile,
@@ -22,6 +23,7 @@ const { isAuthenticatedUser, authorizeRoles } = require('../middlewares/auth')
 
 router.route('/register').post(registerUser);
 router.route('/login').post(loginUser);
+router.route('/loginWithGoogle').post(loginWithGoogle);
 
 router.route('/password/forgot').post(forgotPassword)
 router.route('/password/reset/:token').put(resetPassword)
