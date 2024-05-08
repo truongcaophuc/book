@@ -62,13 +62,11 @@ function App() {
         <Header />
       
           <Routes>
-          
-          <Route path="/test5" element={<SearchPage/>}></Route>
 
           <Route path="/" element={<Home/>}  />
           <Route path="/contact" element={<Contact/>} />
-          <Route path="/search" element={<Home/>} />
-          <Route path="/search/:keyword" element={<Home/>} />
+          <Route path="/search" element={<SearchPage/>} />
+          <Route path="/search/:keyword" element={<SearchPage/>} />
           <Route path="/product/:id" element={<ProductDetails/>} />
           <Route path="/cart" element={<Cart/>} />
           <Route path="/login" element={<UserPage/>} />

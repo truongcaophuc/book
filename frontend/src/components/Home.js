@@ -45,23 +45,13 @@ const Home = () => {
     filteredProductsCount,
   } = useSelector((state) => state.products);
 
-  const params = useParams();
- 
-
-  const keyword = params.keyword;
   useEffect(() => {
     if (error) {
       return alert.error(error);
     }
-    dispatch(getProducts(keyword, currentPage, price, catagory, rating));
-  }, [dispatch, alert, error, keyword, currentPage, price, catagory, rating,params]);
-  useEffect(() => {
-    if (error) {
-      return alert.error(error);
-    }
-    dispatch(getProducts(keyword, currentPage, price, catagory, rating));
-  }, [dispatch, alert, error, keyword, currentPage, price, catagory, rating]);
-
+    const params = new URLSearchParams(`?page=${currentPage}`);
+    dispatch(getProducts(params));
+  }, [dispatch, alert, error, currentPage]);
   function setCurrentPageNo(pageNumber) {
     setCurrentPage(pageNumber);
   }
@@ -79,7 +69,7 @@ const Home = () => {
     setCatagory(catName);
   };
 
-  console.log(products);
+  // console.log(products);
   return (
     <Fragment>
       {loading ? (
