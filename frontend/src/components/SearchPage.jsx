@@ -29,7 +29,7 @@ const SearchPage = () => {
   const defaultPriceRange = [searchParams.get('price[gte]'), searchParams.get('price[lte]')]
   const [price, setPrice] = useState(defaultPriceRange);
   const [catagory, setCatagory] = useState(searchParams.getAll('category[]'));
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState(Number.parseInt(searchParams.get('ratings[gte]') || '0'));
   const { category } = useSelector((state) => state.category);
 
   const alert = useAlert();
@@ -121,7 +121,7 @@ const SearchPage = () => {
               </div>
 
               <hr className="my-3" />
-
+              
               <div className="mt-5">
                 <h4 className="mb-3">Ratings</h4>
 
@@ -133,9 +133,25 @@ const SearchPage = () => {
                         listStyleType: "none",
                       }}
                       key={star}
-                      onClick={() => setRating(star)}
+                      onClick={() => {
+                        setRating(star);
+                        setSearchParams((prev) => {
+                          if(prev.get('ratings[gte]')) {
+                            prev.delete('ratings[gte]')
+                            setRating(0)
+                          }
+                          else 
+                            prev.set('ratings[gte]', star);
+                          return prev;
+                        })
+                      }}
                     >
-                      <div className="rating-outer">
+                      <div 
+                        className="rating-outer"
+                        style={{
+                          backgroundColor: star == rating ? '#5a5454' : '',
+                        }}
+                      >
                         <div
                           className="rating-inner"
                           style={{
