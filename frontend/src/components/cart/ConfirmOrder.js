@@ -76,7 +76,7 @@ const ConfirmOrder = () => {
                             >{user && user.name}</p>
                             <p><b>Số điện thoại:</b> {shippingInfo.phoneNo}</p>
                             <p className="mb-4"><b>Địa chỉ:</b> {`${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.postalCode}, ${shippingInfo.country}`}</p>
-                            <Link to="/me/update"> 
+                            <Link to="/shipping"> 
                                 <p
                                     style={{
                                         fontSize:"18px",

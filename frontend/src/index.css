@@ -7,10 +7,7 @@ body{
     font-family: "Quicksand", sans-serif;
 }
 
-label {
-    margin: 0;
-    color: yellow;
-}
+
 
 .add-cart-btn{
     margin-left: 5px;
