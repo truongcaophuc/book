@@ -63,7 +63,7 @@ const Product = ({ product }) => {
 
       <CardContent>
         <Link to={`/product/${product._id}`}>
-          <Typography className='product-name' gutterBottom variant="h6" fontSize={16}>
+          <Typography className='product-name' gutterBottom variant="h6" fontSize={16} fontWeight={600}>
             {product.name}
           </Typography>
         </Link>
@@ -89,16 +89,13 @@ const Product = ({ product }) => {
           </Stack>
          ) : (
           
-            <Typography className='price' variant="h6" mr={3} fontSize={4}>
+            <Typography className='price' variant="h6" mr={3} fontSize={4} fontWeight={500}>
               {Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.price)}
             </Typography>
         
          )
         }
 
-        
-
-        
 
         <Stack direction="row" className='ratting-sold'>
           {(product.ratings && product.ratings) > 0 ? (

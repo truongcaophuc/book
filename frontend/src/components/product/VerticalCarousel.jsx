@@ -17,7 +17,6 @@ const VerticalCarousel = ({ images }) => {
     <Carousel 
       autoPlay
       infiniteLoop
-      axis='vertical'
       showArrows
       thumbWidth={100}
       selectedItem={selectedIndex}
