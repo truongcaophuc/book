@@ -16,12 +16,13 @@ const ConfirmOrder = () => {
     const dispatch = useDispatch();
     const { cartItems, shippingInfo } = useSelector(state => state.cart)
     const { user } = useSelector(state => state.auth)
+    const {discount} = useSelector(state => state.cart)
 
     // Calculate Order Prices
     const itemsPrice = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0)
-    const shippingPrice = itemsPrice > 200 ? 0 : 25
+    const shippingPrice = itemsPrice > 200 ? 0 : 25000
     const taxPrice = Number((0.05 * itemsPrice).toFixed(2))
-    const totalPrice = (itemsPrice + shippingPrice + taxPrice).toFixed(2)
+    const totalPrice = (itemsPrice + shippingPrice + taxPrice-discount).toFixed(2);
     const randomNumber = Math.floor(Math.random() * 1000000);
 
     const processToPayment = async () => {
@@ -120,9 +121,9 @@ const ConfirmOrder = () => {
                             <h3 className='mb-4 text-xl'><b>Thành tiền</b></h3>
                         
                             <p>Đơn giá:  <span className="order-summary-values">{itemsPrice} đ</span></p>
-                            <p>Tiền vận chuyển: <span className="order-summary-values">{shippingPrice} đ</span></p>
-                            <p>Tax:  <span className="order-summary-values">{taxPrice} đ</span></p>
-
+                            <p>Mã giảm giá: <span className="order-summary-values">-{discount} đ</span></p>
+                            <p>Tiền vận chuyển: <span className="order-summary-values">+{shippingPrice} đ</span></p>
+                            <p>Thuế VAT:  <span className="order-summary-values">+{taxPrice} đ</span></p>
                             <p className='mt-4' style={{color:"#028C2E", fontSize:"22px", fontWeight:"700"}}>Tổng cộng: <span className="order-summary-values">{totalPrice} đ</span></p>
 
                             <Divider/>

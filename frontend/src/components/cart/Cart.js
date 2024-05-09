@@ -2,14 +2,16 @@ import React, { Fragment } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import MetaData from "../layout/MetaData";
-
+import {useState,useEffect} from "react"
 import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
-import { addItemToCart, removeItemFromCart } from "../../actions/cartActions";
+import { addItemToCart, removeItemFromCart,addDiscountToCart } from "../../actions/cartActions";
 import { Box, Container, Divider, Grid, LinearProgress, Stack, Typography } from "@mui/material";
 import DiscountIcon from '@mui/icons-material/Discount';
 import { Button } from "react-bootstrap";
 const Cart = () => {
+  const [discount,setDiscount]=useState(0)
+  const [total,setTotal]=useState(0)
   const navigate=useNavigate()
   const { isAuthenticated} = useSelector(
     (state) => state.auth
@@ -37,18 +39,32 @@ const Cart = () => {
 
     dispatch(addItemToCart(id, newQty));
   };
+  const addDiscount=(discount)=>{
+    setDiscount(discount)
+    dispatch(addDiscountToCart(discount));
+  }
 
   const checkoutHandler = () => {
     if(!isAuthenticated)
     navigate("/login");
   else navigate("/shipping");
   };
-
+  useEffect(() =>{
+  const tongtien=cartItems
+  .reduce(
+    (acc, item) => acc + item.quantity * item.price,
+    -discount
+  )
+  .toFixed(2)
+  console.log(tongtien)
+  setTotal(tongtien);
+}
+  ,[cartItems]);
   return (
     <Fragment>
       <MetaData title={"Giỏ hàng của bạn"} />
       {cartItems.length === 0 ? (
-        <h2 style={{ marginTop: "50px" }}>Giỏ hàng của bạn đang trống</h2>
+        <h2 style={{ marginTop: "200px",fontSize:"25px",textAlign:"center" }}>GIỎ HÀNG CỦA BẠN ĐANG TRỐNG</h2>
       ) : (
         <Container>
           <Grid container>
@@ -159,7 +175,9 @@ const Cart = () => {
                         <LinearProgress variant="determinate" value={50} fontSize={10}/>
                       </Box>
                       <Box sx={{ minWidth: 35}} >
-                        <Button className="btn-apply">
+                        <Button className="btn-apply"
+                        disabled={total<500000}
+                        onClick={()=>{addDiscount(50000)}}>
                           Áp dụng
                         </Button>
                       </Box>
@@ -171,7 +189,7 @@ const Cart = () => {
                   <Box>
                     <Box my={2}>
                       <Typography fontWeight={550}>
-                        MÃ GIẢM 50K - ĐƠN HÀNG TỪ 500K
+                        MÃ GIẢM 100K - ĐƠN HÀNG TỪ 1 TRIỆU
                       </Typography>
                       <Typography fontSize={14} fontWeight={300} color="#7A7E7F">
                         Áp dụng cho tất cả sản phẩm
@@ -182,7 +200,9 @@ const Cart = () => {
                         <LinearProgress variant="determinate" value={50} fontSize={10}/>
                       </Box>
                       <Box sx={{ minWidth: 35}} >
-                        <Button className="btn-apply">
+                        <Button className="btn-apply"
+                         disabled={total<1000000}
+                         onClick={()=>{addDiscount(100000)}}>
                           Áp dụng
                         </Button>
                       </Box>
@@ -209,7 +229,7 @@ const Cart = () => {
                     {cartItems
                       .reduce(
                         (acc, item) => acc + item.quantity * item.price,
-                        0
+                        -discount
                       )
                       .toFixed(2)}
                       đ
