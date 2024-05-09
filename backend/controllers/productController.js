@@ -1,5 +1,5 @@
 const Product = require("../models/product");
-
+const search=require("../utils/elasticlurn")
 const ErrorHandler = require("../utils/errorHandler");
 const catchAsyncErrors = require("../middlewares/catchAsyncErrors");
 const APIFeatures = require("../utils/apiFeatures");
@@ -41,9 +41,7 @@ exports.newProduct = catchAsyncErrors(async (req, res, next) => {
 exports.getProducts = catchAsyncErrors(async (req, res, next) => {
   let objectQuery={}
   let productsCount;
-  if(req.query?.keyword) {
-    objectQuery.name = {$regex:req.query.keyword,$options: 'i'}
-  }
+
   if(req.query?.price){
     objectQuery={...objectQuery,
       $and: [
@@ -75,14 +73,22 @@ exports.getProducts = catchAsyncErrors(async (req, res, next) => {
     sort.price = req.query.sortByPrice
   }
   let products = await Product.find(objectQuery).sort(sort).limit(resPerPage).skip(skip)
-  let filteredProductsCount = products.length;
+  let finalSearch
+  if(req.query?.keyword) {
+   const resultSearch=search(req.query.keyword,products)
+    finalSearch=products.filter((product)=>{
+      return resultSearch.find((result)=>{return result.ref.toString()==product._id.toString()})
+    })
+  }
+  else finalSearch=products
+  let filteredProductsCount = finalSearch.length;
   if(filteredProductsCount == 0) productsCount = 0
   res.status(200).json({
     success: true,
     productsCount,
     resPerPage,
     filteredProductsCount,
-    products,
+    products:finalSearch,
   });
 });
 

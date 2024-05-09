@@ -42,7 +42,7 @@ export default function Chart({orders}) {
                 fill: theme.palette.text.primary,
               },
               tickLabelStyle: theme.typography.body2,
-              max: 100000,
+              max: 3000000,
               tickNumber: 3,
             },
           ]}
