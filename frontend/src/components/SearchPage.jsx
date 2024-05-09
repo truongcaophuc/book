@@ -86,6 +86,11 @@ const SearchPage = () => {
         <Grid container mt={10}>
           <Grid item md={3} my={3}>
             <div className="px-5">
+              <h4 className="mb-3"
+                  style={{ color: "#1976d2", fontSize: "22px", fontWeight: "700" }}
+                >
+                  Lọc theo giá
+                </h4>
               <span>Giá tối thiểu</span>
               <Input type='text' id='minPrice' defaultValue={price[0]} onChange={(e) => {
                 setCurrentPrice(e, 0)
@@ -123,7 +128,11 @@ const SearchPage = () => {
               <hr className="my-3" />
               
               <div className="mt-5">
-                <h4 className="mb-3">Ratings</h4>
+              <h4 className="mb-3"
+                  style={{ color: "#1976d2", fontSize: "22px", fontWeight: "700" }}
+                >
+                  Ratings
+                </h4>
 
                 <ul className="pl-0">
                   {[5, 4, 3, 2, 1].map((star) => (

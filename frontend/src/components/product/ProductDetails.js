@@ -173,7 +173,7 @@ const ProductDetails = ({ match }) => {
                   <div className="product-details-gallery">
                     <div className="row g-3">
                       <div className="col-sm-1"></div>
-                      <div className="col-sm-11 bg white">
+                      <div className="col-sm-10 bg white">
                        <VerticalCarousel images={product.images}/>
                       </div>
                      

@@ -76,7 +76,9 @@ label {
     color: #1976D2;
 }
 
-
+button:focus {
+    outline: none !important;
+}
 
 .carousel .thumb.selected, .carousel .thumb:hover {
     border: 1px solid #1976D2 !important;
@@ -88,7 +90,7 @@ label {
     vertical-align: top;
     border: #ebebf0 solid 1px !important;
     border-radius: 10px;
-    height: 450px;
+    height: 550px;
 }
 
 .carousel{
