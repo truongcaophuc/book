@@ -8,6 +8,7 @@ import { register, clearErrors } from "../../actions/userActions";
 import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -106,15 +107,27 @@ const Register = () => {
             </div>
           </div>
           <div className="col-12">
-            <div className="form-inner hidden-icon">
-              <label htmlFor="password_field">Password *</label>
+              <label htmlFor="password_field">Password </label>
+            <div className="form-inner flex items-center">
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 name="password"
                 placeholder="abcdef*****"
                 value={password}
                 onChange={onchange}
               />
+              <div
+            className="absolute right-[32px] "
+            onClick={() => {
+              setShowPassword(!showPassword);
+            }}
+          >
+            {showPassword ? (
+              <i className="fa-solid fa-eye-slash"></i>
+            ) : (
+              <i className="fa-solid fa-eye"></i>
+            )}
+          </div>
             </div>
           </div>
           <div className="form-group">

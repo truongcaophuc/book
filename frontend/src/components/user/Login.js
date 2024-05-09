@@ -13,7 +13,7 @@ import Swal from "sweetalert2";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [showPassword, setShowPassword] = useState(false);
   const alert = useAlert();
   const dispatch = useDispatch();
   const history = useNavigate();
@@ -99,15 +99,27 @@ const Login = () => {
                 </div>
               </div>
               <div className="col-12">
-                <div className="form-inner hidden-icon">
                   <label htmlFor="email_password">Mật khẩu</label>
+                <div className="form-inner flex items-center">
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     name="name"
                     placeholder="abcdef*****"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
+                <div
+            className="absolute right-[32px] "
+            onClick={() => {
+              setShowPassword(!showPassword);
+            }}
+          >
+            {showPassword ? (
+              <i className="fa-solid fa-eye-slash"></i>
+            ) : (
+              <i className="fa-solid fa-eye"></i>
+            )}
+          </div>
                 </div>
               </div>
               <div className="col-12">
