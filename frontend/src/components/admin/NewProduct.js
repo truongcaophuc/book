@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 
 import MetaData from "../layout/MetaData";
 import Sidebar from "./Sidebar";
+import Swal from "sweetalert2";
 
 import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,6 +14,7 @@ const NewProduct = () => {
     const navigate=useNavigate()
 	const [name, setName] = useState("");
 	const [price, setPrice] = useState(0);
+	const [salePrice, setSalePrice] =useState(0);
 	const [description, setDescription] = useState("");
 	const [catagory, setCatagory] = useState("");
 	const [stock, setStock] = useState(0);
@@ -34,7 +36,11 @@ const NewProduct = () => {
 
 		if (success) {
 			navigate("/admin/products");
-			alert.success("Product created successfully");
+			Swal.fire({
+				title: "Đã thêm!",
+				text: "Thêm thành công sản phẩm.",
+				icon: "success"
+			  });
 			dispatch({ type: NEW_PRODUCT_RESET });
 		}
 	}, [dispatch, alert, error, success]);
@@ -49,6 +55,7 @@ const NewProduct = () => {
 		formData.set("category", catagory);
 		formData.set("stock", stock);
 		formData.set("seller", seller);
+		formData.set("salePrice", salePrice);
 
 		images.forEach((image) => {
 			formData.append("images", image);
@@ -87,7 +94,7 @@ const NewProduct = () => {
 			) : (
 				<>
 					<div className="row mt-5">
-						<div className="col-12 col-md-2 mt-4">
+						<div className="col-12 col-md-2 mt-3">
 							<Sidebar />
 						</div>
 
@@ -99,10 +106,10 @@ const NewProduct = () => {
 										onSubmit={submitHandler}
 										encType="multipart/form-data"
 									>
-										<h1 className="mb-4">New Product</h1>
+										<h1 className="mb-4">Sản phẩm mới</h1>
 
 										<div className="form-group">
-											<label htmlFor="name_field">Name</label>
+											<label htmlFor="name_field">Tên</label>
 											<input
 												type="text"
 												id="name_field"
@@ -113,7 +120,7 @@ const NewProduct = () => {
 										</div>
 
 										<div className="form-group">
-											<label htmlFor="price_field">Price</label>
+											<label htmlFor="price_field">Giá</label>
 											<input
 												type="text"
 												id="price_field"
@@ -124,7 +131,18 @@ const NewProduct = () => {
 										</div>
 
 										<div className="form-group">
-											<label htmlFor="description_field">Description</label>
+											<label htmlFor="salePrice_field">Giá khuyến mãi</label>
+											<input
+												type="text"
+												id="salePrice_field"
+												className="form-control"
+												value={salePrice}
+												onChange={(e) => setSalePrice(e.target.value)}
+											/>
+										</div>
+
+										<div className="form-group">
+											<label htmlFor="description_field">Mô tả</label>
 											<textarea
 												className="form-control"
 												id="description_field"
@@ -135,7 +153,7 @@ const NewProduct = () => {
 										</div>
 
 										<div className="form-group">
-											<label htmlFor="category_field">Category</label>
+											<label htmlFor="category_field">Danh mục</label>
 											<select
 												className="form-control"
 												id="category_field"
@@ -150,7 +168,7 @@ const NewProduct = () => {
 											</select>
 										</div>
 										<div className="form-group">
-											<label htmlFor="stock_field">Stock</label>
+											<label htmlFor="stock_field">Số lượng</label>
 											<input
 												type="number"
 												id="stock_field"
@@ -161,7 +179,7 @@ const NewProduct = () => {
 										</div>
 
 										<div className="form-group">
-											<label htmlFor="seller_field">Seller Name</label>
+											<label htmlFor="seller_field">Nhà cung cấp</label>
 											<input
 												type="text"
 												id="seller_field"
@@ -187,7 +205,7 @@ const NewProduct = () => {
 													className="custom-file-label"
 													htmlFor="customFile"
 												>
-													Choose Images
+													Chọn ảnh
 												</label>
 											</div>
 
@@ -209,7 +227,7 @@ const NewProduct = () => {
 											className="btn btn-block py-3"
 											disabled={loading ? true : false}
 										>
-											CREATE
+											Tạo
 										</button>
 									</form>
 								</div>

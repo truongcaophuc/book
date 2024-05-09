@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { MDBDataTable } from 'mdbreact'
+import Swal from "sweetalert2"
 
 import MetaData from '../layout/MetaData'
 import Loader from '../layout/Loader'
@@ -10,6 +11,7 @@ import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAdminProducts, deleteProduct, clearErrors } from '../../actions/productActions'
 import { DELETE_PRODUCT_RESET } from '../../constants/productConstants'
+import Title from './Title'
 
 
 const ProductsList = () => {
@@ -34,7 +36,6 @@ const ProductsList = () => {
 		}
 
 		if (isDeleted) {
-			alert.success('Product deleted successfully');
 			navigate('/admin/products');
 			dispatch({ type: DELETE_PRODUCT_RESET })
 		}
@@ -50,27 +51,27 @@ const ProductsList = () => {
 					sort: 'asc'
 				},
 				{
-					label: 'Name',
+					label: 'Tên sản phẩm',
 					field: 'name',
 					sort: 'asc'
 				},
 				{
-					label: 'Price',
+					label: 'Giá',
 					field: 'price',
 					sort: 'asc'
 				},
 				{
-					label: 'Stock',
+					label: 'Trong kho',
 					field: 'stock',
 					sort: 'asc'
 				},
 				{
-					label: 'Category',
+					label: 'Danh mục',
 					field: 'category',
 					sort: 'asc'
 				},
 				{
-					label: 'Actions',
+					label: 'Thao tác',
 					field: 'actions',
 				},
 			],
@@ -99,20 +100,37 @@ const ProductsList = () => {
 	}
 
 	const deleteProductHandler = (id) => {
-		dispatch(deleteProduct(id))
-	}
+		Swal.fire({
+		  title: "Bạn có muốn xóa",
+		  text: "Bạn không thể hoàn tác lại!",
+		  icon: "warning",
+		  showCancelButton: true,
+		  confirmButtonColor: "#3085d6",
+		  cancelButtonColor: "#d33",
+		  confirmButtonText: "Tiếp tục xóa!"
+		}).then((result) => {
+		  if (result.isConfirmed) {
+			Swal.fire({
+			  title: "Đã xóa!",
+			  text: "Lựa chọn đã được xóa.",
+			  icon: "success"
+			});
+			dispatch(deleteProduct(id));
+		  }
+		});
+	  };
 
 	return (
 		<Fragment>
 			<MetaData title={'All Products'} />
 			<div className="row mt-5">
-				<div className="col-12 col-md-2 mt-4">
+				<div className="col-12 col-md-2 mt-3">
 					<Sidebar />
 				</div>
 
 				<div className="col-12 col-md-10 mt-5">
 					<Fragment>
-						<h1 className="my-5">Tất cả sản phẩm</h1>
+						<Title> Danh sách sản phẩm</Title>
 
 						{loading ? <Loader /> : (
 							<MDBDataTable

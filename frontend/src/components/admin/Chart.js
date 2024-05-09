@@ -1,32 +1,22 @@
 import * as React from 'react';
 import { useTheme } from '@mui/material/styles';
 import { LineChart, axisClasses } from '@mui/x-charts';
+import { allOrders } from '../../actions/orderActions'
 
 import Title from './Title';
 
-// Generate Sales Data
 function createData(time, amount) {
   return { time, amount: amount ?? null };
 }
 
-const data = [
-  createData('00:00', 0),
-  createData('03:00', 300),
-  createData('06:00', 600),
-  createData('09:00', 800),
-  createData('12:00', 1500),
-  createData('15:00', 2000),
-  createData('18:00', 2400),
-  createData('21:00', 2400),
-  createData('24:00'),
-];
-
-export default function Chart() {
+export default function Chart({orders}) {
   const theme = useTheme();
+
+  const data = orders?.map(order => createData(order.createdAt  , order.totalPrice)) ;
 
   return (
     <React.Fragment>
-      <Title>Today</Title>
+      <Title>Tổng quan</Title>
       <div style={{ width: '100%', flexGrow: 1, overflow: 'hidden' }}>
         <LineChart
           dataset={data}
@@ -46,13 +36,13 @@ export default function Chart() {
           ]}
           yAxis={[
             {
-              label: 'Sales ($)',
+              label: 'Sale(đ)',
               labelStyle: {
                 ...theme.typography.body1,
                 fill: theme.palette.text.primary,
               },
               tickLabelStyle: theme.typography.body2,
-              max: 2500,
+              max: 100000,
               tickNumber: 3,
             },
           ]}

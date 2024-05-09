@@ -8,6 +8,7 @@ import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
 import { login,loginWithGoogle, clearErrors } from "../../actions/userActions";
 import {  useGoogleLogin } from "@react-oauth/google";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -29,9 +30,19 @@ const Login = () => {
     );
     const data = await response.json();
     dispatch(loginWithGoogle(data));
+    Swal.fire({
+      title: "Thành công",
+      text: "Đăng nhập tài khoản",
+      icon: "success"
+    });
   };
   const loginFailure = (response) => {
     console.log("Login failure", response);
+    Swal.fire({
+      title: "Oh no...",
+      text: "Đăng nhập ko thành công",
+      icon: "error"
+    });
   };
   const loginGoogle = useGoogleLogin({
     onSuccess: loginSuccess,
@@ -57,6 +68,11 @@ const Login = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(login(email, password));
+    Swal.fire({
+      title: "Thành công",
+      text: "Đăng nhập tài khoản",
+      icon: "success"
+    });
   };
 
   return (

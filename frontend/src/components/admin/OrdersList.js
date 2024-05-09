@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { MDBDataTable } from 'mdbreact'
+import Title from "./Title"
 
 import MetaData from '../layout/MetaData'
 import Loader from '../layout/Loader'
@@ -43,27 +44,27 @@ const OrdersList = ({ history }) => {
 		const data = {
 			columns: [
 				{
-					label: 'Order ID',
+					label: 'ID ',
 					field: 'id',
 					sort: 'asc'
 				},
 				{
-					label: 'No of Items',
+					label: 'Số lượng',
 					field: 'numofItems',
 					sort: 'asc'
 				},
 				{
-					label: 'Amount',
+					label: 'Tổng tiền',
 					field: 'amount',
 					sort: 'asc'
 				},
 				{
-					label: 'Status',
+					label: 'Trạng thái',
 					field: 'status',
 					sort: 'asc'
 				},
 				{
-					label: 'Actions',
+					label: 'Thao tác',
 					field: 'actions',
 				},
 			],
@@ -97,14 +98,14 @@ const OrdersList = ({ history }) => {
 		<Fragment>
 			<MetaData title={'All Orders'} />
 			<div className="row mt-5">
-				<div className="col-12 col-md-2 mt-4">
+				<div className="col-12 col-md-2 mt-3">
 					<Sidebar />
 				</div>
 
 				<div className="col-12 col-md-10 mt-5">
 					<Fragment>
-						<h1 className="my-5">All Orders</h1>
-
+						
+						<Title> Tất cả đơn hàng </Title>
 						{loading ? <Loader /> : (
 							<MDBDataTable
 								data={setOrders()}

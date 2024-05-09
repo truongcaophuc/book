@@ -11,11 +11,11 @@ const RelatedProducts = ({ category }) => {
     <>
       {category ? (
         <>
-          <section className="related-product pb-100">
+          <section className="related-product pb-80">
             <div className="container">
               <div className="row">
                 <div className="col-12">
-                  <h3 className="eg-title1 eg-title2 mb-50">Related Product</h3>
+                  <h3 className="eg-title1 eg-title2 mb-50">Sản phẩm liên quan</h3>
                 </div>
               </div>
               

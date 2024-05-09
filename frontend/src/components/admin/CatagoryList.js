@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect } from "react";
 import { MDBDataTable } from "mdbreact";
+import Swal from "sweetalert2";
 
 import MetaData from "../layout/MetaData";
 import Loader from "../layout/Loader";
@@ -13,10 +14,12 @@ import {
 	clearErrors,
 } from "../../actions/categoryActions";
 import { DELETE_CATEGORY_RESET } from "../../constants/categoryConstants";
+import { useNavigate } from "react-router-dom";
 
-const CategorysList = ({ history }) => {
+const CategorysList = () => {
 	const alert = useAlert();
 	const dispatch = useDispatch();
+	const history = useNavigate();
 
 	const { loading, error, category } = useSelector((state) => state.category);
 	const { error: deleteError, isDeleted } = useSelector(
@@ -37,8 +40,8 @@ const CategorysList = ({ history }) => {
 		}
 
 		if (isDeleted) {
-			alert.success("Category deleted successfully");
-			history.push("/admin/Category");
+			
+			history("/admin/Category");
 			dispatch({ type: DELETE_CATEGORY_RESET });
 		}
 	}, [dispatch, alert, error, deleteError, isDeleted, history]);
@@ -85,14 +88,32 @@ const CategorysList = ({ history }) => {
 	};
 
 	const deleteCategoryHandler = (id) => {
-		dispatch(dltCategory(id));
+		Swal.fire({
+			title: "Bạn có muốn xóa",
+			text: "Bạn không thể hoàn tác lại!",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33",
+			confirmButtonText: "Tiếp tục xóa!"
+		  }).then((result) => {
+			if (result.isConfirmed) {
+			  Swal.fire({
+				title: "Đã xóa!",
+				text: "Lựa chọn đã được xóa.",
+				icon: "success"
+			  });
+			  dispatch(dltCategory(id));
+			}
+		  });
+		
 	};
 
 	return (
 		<Fragment>
 			<MetaData title={"All Category"} />
 			<div className="row mt-5">
-				<div className="col-12 col-md-2 mt-4">
+				<div className="col-12 col-md-2 mt-3">
 					<Sidebar />
 				</div>
 

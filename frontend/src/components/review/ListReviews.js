@@ -2,11 +2,11 @@ import React from "react";
 
 const ListReviews = ({ reviews }) => {
   return (
-    <section className="prod-description pt-100 pb-100 ">
+    <section className="prod-description pt-10 pb-100 ">
       <div className="container">
         <div className="row">
           <div className="col-12">
-            <h3 className="eg-title1 eg-title2 mb-50">Product Reviews</h3>
+            <h3 className="eg-title1 eg-title2 mb-50">Đánh giá sản phẩm</h3>
             <div className="row g-4">
               <div className="col-lg-3">
                 <div
@@ -26,7 +26,7 @@ const ListReviews = ({ reviews }) => {
                     aria-selected="true"
                     style={{ border: "none" }}
                   >
-                    Reviews ({reviews.length})
+                    Đánh giá ({reviews.length})
                   </button>
                 </div>
               </div>
@@ -53,7 +53,7 @@ const ListReviews = ({ reviews }) => {
                                     {review.name}
                                     <span className="commnt-date">
                                       {" "}
-                                      - 8th Jan 2021
+                                      - 8th Jan 202
                                     </span>
                                   </h5>
                                   <div class="rating-outer">

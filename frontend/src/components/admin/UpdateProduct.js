@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react'
 
 import MetaData from '../layout/MetaData'
 import Sidebar from './Sidebar'
+import Swal from 'sweetalert2'
 
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
@@ -60,7 +61,11 @@ const UpdateProduct = () => {
 
 		if (isUpdated) {
 			navigate('/admin/products');
-			alert.success('Product updated successfully');
+			Swal.fire({
+				title: "Đã cập nhật!",
+				text: "Cập nhật sản phẩm thành công",
+				icon: "success"
+			  });
 			dispatch({ type: UPDATE_PRODUCT_RESET })
 		}
 
@@ -112,7 +117,7 @@ const UpdateProduct = () => {
 		<Fragment>
 			<MetaData title={'Update Product'} />
 			<div className="row mt-5">
-				<div className="col-12 col-md-2 mt-4">
+				<div className="col-12 col-md-2 mt-3">
 					<Sidebar />
 				</div>
 
@@ -120,10 +125,10 @@ const UpdateProduct = () => {
 					<Fragment>
 						<div className="wrapper my-5">
 							<form className="shadow-lg" onSubmit={submitHandler} encType='multipart/form-data'>
-								<h1 className="mb-4">Update Product</h1>
+								<h1 className="mb-4">Cập nhật sản phẩm</h1>
 
 								<div className="form-group">
-									<label htmlFor="name_field">Name</label>
+									<label htmlFor="name_field">Tên</label>
 									<input
 										type="text"
 										id="name_field"
@@ -134,7 +139,7 @@ const UpdateProduct = () => {
 								</div>
 
 								<div className="form-group">
-									<label htmlFor="price_field">Price</label>
+									<label htmlFor="price_field">Giá</label>
 									<input
 										type="text"
 										id="price_field"
@@ -145,12 +150,12 @@ const UpdateProduct = () => {
 								</div>
 
 								<div className="form-group">
-									<label htmlFor="description_field">Description</label>
+									<label htmlFor="description_field">Mô tả</label>
 									<textarea className="form-control" id="description_field" rows="8" value={description} onChange={(e) => setDescription(e.target.value)}></textarea>
 								</div>
 
 								<div className="form-group">
-									<label htmlFor="category_field">Category</label>
+									<label htmlFor="category_field">Danh mục</label>
 									<select className="form-control" id="category_field" value={category} onChange={(e) => setCategory(e.target.value)}>
 										{categories.map(category => (
 											<option key={category._id} value={category.name} >{category.name}</option>
@@ -159,7 +164,7 @@ const UpdateProduct = () => {
 									</select>
 								</div>
 								<div className="form-group">
-									<label htmlFor="stock_field">Stock</label>
+									<label htmlFor="stock_field">Số lượng</label>
 									<input
 										type="number"
 										id="stock_field"
@@ -170,7 +175,7 @@ const UpdateProduct = () => {
 								</div>
 
 								<div className="form-group">
-									<label htmlFor="seller_field">Seller Name</label>
+									<label htmlFor="seller_field">Nhà bán</label>
 									<input
 										type="text"
 										id="seller_field"
@@ -193,7 +198,7 @@ const UpdateProduct = () => {
 											multiple
 										/>
 										<label className='custom-file-label' htmlFor='customFile'>
-											Choose Images
+											Chọn ảnh
 										</label>
 									</div>
 

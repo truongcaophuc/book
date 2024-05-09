@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 
 import MetaData from "../layout/MetaData";
 import Sidebar from "./Sidebar";
+import Swal from "sweetalert2";
 
 import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,7 +30,11 @@ const NewCategory = () => {
 
 		if (success) {
 			navigate("/admin/category");
-			alert.success("Category created successfully");
+			Swal.fire({
+				title: "Đã thêm!",
+				text: "Thêm danh mục thành công.",
+				icon: "success"
+			  });
 			dispatch({ type: NEW_CATRGORY_RESET });
 		}
 	}, [dispatch, alert, error, success]);
@@ -74,7 +79,7 @@ const NewCategory = () => {
 			) : (
 				<>
 					<div className="row mt-5">
-						<div className="col-12 col-md-2 mt-4">
+						<div className="col-12 col-md-2 mt-3">
 							<Sidebar />
 						</div>
 
@@ -86,10 +91,10 @@ const NewCategory = () => {
 										onSubmit={submitHandler}
 										encType="multipart/form-data"
 									>
-										<h1 className="mb-4">New Category</h1>
+										<h1 className="mb-4">Danh mục mới </h1>
 
 										<div className="form-group">
-											<label htmlFor="name_field">Name</label>
+											<label htmlFor="name_field">Tên</label>
 											<input
 												type="text"
 												id="name_field"
@@ -99,7 +104,7 @@ const NewCategory = () => {
 											/>
 										</div>
 										<div className="form-group">
-											<label>Images</label>
+											<label>Ảnh</label>
 
 											<div className="custom-file">
 												<input
@@ -114,7 +119,7 @@ const NewCategory = () => {
 													className="custom-file-label"
 													htmlFor="customFile"
 												>
-													Choose Images
+													Chọn ảnh
 												</label>
 											</div>
 
@@ -136,7 +141,7 @@ const NewCategory = () => {
 											className="btn btn-block py-3"
 											disabled={loading ? true : false}
 										>
-											CREATE
+											Tạo
 										</button>
 									</form>
 								</div>

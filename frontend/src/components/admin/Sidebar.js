@@ -14,7 +14,7 @@ const Sidebar = () => {
 				<ul className="list-unstyled components mt-4">
 					<li>
 						<Link to="/dashboard">
-							<i className="fa fa-tachometer"></i> Dashboard
+							<i className="fa fa-tachometer"></i> Bảng điều khiển
 						</Link>
 					</li>
 
@@ -24,19 +24,19 @@ const Sidebar = () => {
 							className="productSubmenu"
 							onClick={toggleButton}
 						>
-							<i className="fa fa-product-hunt"></i> Products
+							<i className="fa fa-product-hunt"></i> Sản phẩm
 						</a>
 						{expand.product &&
 						<ul className="" >
 							<li>
 								<Link to="/admin/products">
-									<i className="fa fa-clipboard"></i> All
+									<i className="fa fa-clipboard"></i> Tất cả
 								</Link>
 							</li>
 
 							<li>
 								<Link to="/admin/product">
-									<i className="fa fa-plus"></i> Create
+									<i className="fa fa-plus"></i> Thêm mới
 								</Link>
 							</li>
 						</ul>}
@@ -47,19 +47,19 @@ const Sidebar = () => {
 							className="categorySubmenu"
 							onClick={toggleButton}
 						>
-							<i className="fa fa-product-hunt"></i> Category
+							<i className="fa fa-product-hunt"></i> Danh mục
 						</a>
 						{expand.category &&
 						<ul className="" id="categorySubmenu">
 							<li>
 								<Link to="/admin/category">
-									<i className="fa fa-clipboard"></i> All
+									<i className="fa fa-clipboard"></i> Tất cả
 								</Link>
 							</li>
 
 							<li>
 								<Link to="/admin/category/new">
-									<i className="fa fa-plus"></i> Create
+									<i className="fa fa-plus"></i> Thêm mới
 								</Link>
 							</li>
 						</ul>}
@@ -67,19 +67,19 @@ const Sidebar = () => {
 
 					<li>
 						<Link to="/admin/orders">
-							<i className="fa fa-shopping-basket"></i> Orders
+							<i className="fa fa-shopping-basket"></i> Đơn hàng
 						</Link>
 					</li>
 
 					<li>
 						<Link to="/admin/users">
-							<i className="fa fa-users"></i> Users
+							<i className="fa fa-users"></i> Người dùng
 						</Link>
 					</li>
 
 					<li>
 						<Link to="/admin/reviews">
-							<i className="fa fa-star"></i> Reviews
+							<i className="fa fa-star"></i> Đánh giá
 						</Link>
 					</li>
 				</ul>
