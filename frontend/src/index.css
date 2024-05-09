@@ -9,7 +9,7 @@ body{
 
 label {
     margin: 0;
-    color: yellow;
+    color: #FFC107;
 }
 
 .add-cart-btn{
@@ -76,6 +76,25 @@ label {
     color: #1976D2;
 }
 
-.category_card:hover{
-    transform: scale(1.1);
+
+
+.carousel .thumb.selected, .carousel .thumb:hover {
+    border: 1px solid #1976D2 !important;
+    border-radius: 10px;
+}
+
+.carousel .slide img {
+    width: 100%;
+    vertical-align: top;
+    border: #ebebf0 solid 1px !important;
+    border-radius: 10px;
+    height: 450px;
+}
+
+.carousel{
+
+}
+
+.dataTables_length .bs-select label{
+    color: #0F0F0F !important;
 }

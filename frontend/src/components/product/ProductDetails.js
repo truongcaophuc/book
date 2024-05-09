@@ -1,5 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { Button, Carousel } from "react-bootstrap";
+import Swal from "sweetalert2"
+import IconBreadcrumbs from "../layout/BreadCrumbs";
 
 import {useParams}  from "react-router-dom"
 import Loader from "../layout/Loader";
@@ -20,8 +22,7 @@ import { Box, IconButton, Link, Rating, Stack, Typography } from "@mui/material"
 import { AddShoppingCartOutlined } from "@mui/icons-material";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-import Modal from '@mui/material/Modal';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import VerticalCarousel from "./VerticalCarousel";
 
 const ProductDetails = ({ match }) => {
 
@@ -63,7 +64,11 @@ const ProductDetails = ({ match }) => {
 
   const addToCart = () => {
     dispatch(addItemToCart(params.id, quantity));
-    setOpen(true);
+    Swal.fire({
+      title: "Thành công",
+      text: "Đã thêm vào giỏ hàng",
+      icon: "success"
+    });
   };
 
   const increaseQty = () => {
@@ -158,40 +163,20 @@ const ProductDetails = ({ match }) => {
         <Fragment>
           <MetaData title={product.name} />
 
-          <section className="prod-details pt-100 mt-5 mb-5">
+          <section className="prod-details pt-10 mt-5 mb-5">
             <div className="container">
               <div className="row">
-                <div className="col-lg-6">
+                <IconBreadcrumbs/>
+              </div>
+              <div className="row">
+                <div className="col-lg-6 mt-2">
                   <div className="product-details-gallery">
                     <div className="row g-3">
-                      <div className="col-sm-9">
-                        <div className="tab-content" id="v-pills-tabContent">
-                          <div
-                            className="tab-pane fade show active "
-                            id="v-pills-img1"
-                            role="tabpanel"
-                            aria-labelledby="v-pills-img1-tab"
-                          >
-                            <div
-                              className="gallery-big-image shadow-lg"
-                              style={{ border: "none" }}
-                            >
-                              <Carousel pause="hover">
-                                {product.images &&
-                                  product.images.map((image) => (
-                                    <Carousel.Item key={image.public_id}>
-                                      <img
-                                        className="d-block w-100"
-                                        src={image.url}
-                                        alt={product.title}
-                                      />
-                                    </Carousel.Item>
-                                  ))}
-                              </Carousel>
-                            </div>
-                          </div>
-                        </div>
+                      <div className="col-sm-1"></div>
+                      <div className="col-sm-11 bg white">
+                       <VerticalCarousel images={product.images}/>
                       </div>
+                     
                     </div>
                   </div>
                 </div>
@@ -239,27 +224,6 @@ const ProductDetails = ({ match }) => {
                         </button>
 
                       </Stack>
-                      
-                      <Modal
-                        open={open}
-                        onClose={handleClose}
-                        aria-labelledby="modal-modal-title"
-                        aria-describedby="modal-modal-description"
-                      >
-                        <Box sx={style}>
-                          <Box sx={{ textAlign: 'center' }}> {/* Căn giữa icon */}
-                            <CheckCircleOutlineIcon className="modal-icon" color="success" sx={{ fontSize: '100px'}} />
-                          </Box>
-                          <Box textAlign="center">
-                            <Typography id="modal-modal-title" variant="h6" component="h2">
-                              Thành công
-                            </Typography>
-                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                              Sản phẩm đã được thêm vào giỏ hàng.
-                            </Typography>
-                          </Box>  
-                        </Box>
-                      </Modal>
 
                       <Button
                         className="add-cart-btn"
@@ -277,13 +241,13 @@ const ProductDetails = ({ match }) => {
                     </div>
                     <ul className="prod-info">
                       <li>
-                        <span>Stock:</span>
+                        <span>Hàng có sẵn:</span>
                         <b
                           className={
                             product.stock ? "text-success" : "text-danger"
                           }
                         >
-                          {product.stock ? product.stock : "Out of stock"}
+                          {product.stock ? product.stock : "Hết hàng"}
                         </b>
                       </li>
                       <li>
@@ -300,7 +264,7 @@ const ProductDetails = ({ match }) => {
                             data-target="#ratingModal"
                             onClick={setUserRatings}
                           >
-                            Gửi đánh giá của bạn
+                            Đánh giá sản phẩm
                           </button>
                         ) : (
                           <div className="alert alert-danger mt-5" type="alert">

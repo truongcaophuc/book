@@ -23,7 +23,7 @@ const Product = ({ product }) => {
 
 
   const addToCart = (id) => {
-    console.log("id",id)
+    
     dispatch(addItemToCart(id, quantity));
   };
 

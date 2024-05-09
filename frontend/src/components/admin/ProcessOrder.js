@@ -1,5 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import { Link,useParams } from 'react-router-dom'
+import Swal from 'sweetalert2'
 
 import MetaData from '../layout/MetaData'
 import Loader from '../layout/Loader'
@@ -36,7 +37,11 @@ const ProcessOrder = () => {
 
 
 		if (isUpdated) {
-			alert.success('Order updated successfully');
+			Swal.fire({
+				title: "Đã cập nhật!",
+				text: "Cập nhật thành công.",
+				icon: "success"
+			  });
 			dispatch({ type: UPDATE_ORDER_RESET })
 		}
 
@@ -58,7 +63,7 @@ const ProcessOrder = () => {
 		<Fragment>
 			<MetaData title={`Chi tiết đơn # ${order && order._id}`} />
 			<div className="row mt-5 bg-white">
-				<div className="col-12 col-md-2 mt-4">
+				<div className="col-12 col-md-2 mt-3">
 					<Sidebar />
 				</div>
 

@@ -67,7 +67,6 @@ const Home = () => {
     setCatagory(catName);
   };
 
-  // console.log(products);
   return (
     <Fragment>
       {loading ? (
@@ -77,16 +76,8 @@ const Home = () => {
           <MetaData title={"Shop sách online"} />
           {ishome && (
             <Banner2/>
-            // <Banner
-            //   src="/images/banner/banner.png"
-            //   search="true"
-            //   text="Mang đến tri thức cho bạn"
-            //   text2="Vận chuyển đến bạn tất cả các ngày trong tuần"
-            // />
           )}
           {ishome && <CategorySection setCatagory={setCatagory}/>}
-
-          
 
           {ishome ? (
             <div class="col-lg-12 mt-5">
@@ -97,13 +88,6 @@ const Home = () => {
             </div>
           ) : (
             <>
-              {
-                // <Banner
-                //   src="https://res.cloudinary.com/hba-solver/image/upload/v1657882267/banner/bg2_a9w4ja.png"
-                //   search="false"
-                //   text="Search Items"
-                // />
-              }
               <div class="col-lg-12 mt-100">
                 <div class="section-head-style-one">
                   <h2>Danh sách sản phẩm</h2>

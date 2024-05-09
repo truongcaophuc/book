@@ -106,7 +106,7 @@ const ProductReviews = () => {
 		<Fragment>
 			<MetaData title={'Product Reviews'} />
 			<div className="row mt-5">
-				<div className="col-12 col-md-2 mt-4">
+				<div className="col-12 col-md-2 mt-3">
 					<Sidebar />
 				</div>
 
