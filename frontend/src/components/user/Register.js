@@ -72,9 +72,9 @@ const Register = () => {
 
   return (
     <Fragment>
-      <MetaData title={"Register User"} />
+      <MetaData title={"Đăng kí tài khoản"} />
 
-      <h3 className="title-30 text-center mb-35">Đăng kí tài khoản</h3>
+      <h3 className="title-30 text-center mb-20">Đăng kí tài khoản</h3>
 
       <form
         className="login-form"
@@ -84,11 +84,11 @@ const Register = () => {
         <div className="row">
           <div className="col-12">
             <div className="form-inner">
-              <label htmlFor="name_field">Name</label>
+              <label htmlFor="name_field">Tên</label>
               <input
                 type="name"
                 name="name"
-                placeholder="Your Name"
+                placeholder="Tên của bạn"
                 value={name}
                 onChange={onchange}
               />
@@ -100,14 +100,14 @@ const Register = () => {
               <input
                 type="email"
                 name="email"
-                placeholder="Your Email"
+                placeholder="Email của bạn"
                 value={email}
                 onChange={onchange}
               />
             </div>
           </div>
           <div className="col-12">
-              <label htmlFor="password_field">Password </label>
+              <label htmlFor="password_field">Mật khẩu </label>
             <div className="form-inner flex items-center">
               <input
                 type={showPassword ? "text" : "password"}

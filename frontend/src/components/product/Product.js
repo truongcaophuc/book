@@ -2,7 +2,7 @@ import React from 'react';
 import { useState,useEffect } from 'react';
 import { Box, Card, CardContent, CardMedia, Rating, Stack, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { AddShoppingCart } from '@mui/icons-material';
+import { AddShoppingCart, VisibilityOutlined } from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import {useParams}  from "react-router-dom"
@@ -15,15 +15,23 @@ import {
   clearErrors,
 } from "../../actions/productActions";
 
+import Alert from '@mui/material/Alert';
+import CheckIcon from '@mui/icons-material/Check';
+import { useNavigate } from 'react-router-dom';
+
 const Product = ({ product }) => {
   const [value, setValue] = React.useState(2);
+  const [showAlert, setShowAlert] = useState();
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   
-
+  const goToProduct = ()=>{
+      navigate(`/product/${product._id}`)
+  }
 
   const addToCart = (id) => {
-    
+    setShowAlert(true);
     dispatch(addItemToCart(id, quantity));
   };
 
@@ -39,6 +47,8 @@ const Product = ({ product }) => {
         } 
       }}
     >
+
+      
       <Box width="174px" margin="0 auto" height="174px" marginTop="24px">
         <Link to={`/product/${product._id}`} >
           <CardMedia
@@ -130,15 +140,28 @@ const Product = ({ product }) => {
           className='stack-button'
           
         >
+          {showAlert && ( 
+        <Alert 
+          sx={{position:"absolute"}}
+          icon={<CheckIcon fontSize="inherit" />} 
+          severity="success"
+         
+        >
+          Đã thêm vào giỏ hàng
+        </Alert>
+      )}
+
           <IconButton color="primary" aria-label="add to wishlist cart"
             
             onClick={() => addToCart(product._id)}
           >
-            <FavoriteBorderIcon />
+            {showAlert ? <></> : <AddShoppingCart />}
           </IconButton>
 
-          <IconButton color="primary" aria-label="add to shopping cart">
-            <AddShoppingCart />
+          <IconButton color="primary" aria-label="add to shopping cart"
+            onClick={goToProduct}
+          >
+            {showAlert ? <></> : <VisibilityOutlined/>}
           </IconButton>
         </Stack>
       </CardContent>

@@ -76,7 +76,9 @@ label {
     color: #1976D2;
 }
 
-
+button:focus {
+    outline: none !important;
+}
 
 .carousel .thumb.selected, .carousel .thumb:hover {
     border: 1px solid #1976D2 !important;
